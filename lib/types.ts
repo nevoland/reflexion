@@ -1,10 +1,3 @@
-export type Any =
-  | boolean
-  | string
-  | number
-  | object
-  | symbol
-  | null
-  | undefined
-  | Array<any>
-  | ((...args: any[]) => any);
+export type Direction = "column" | "row";
+
+export type Alignment = "start" | "center" | "end" | "stretch";

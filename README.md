@@ -1,36 +1,17 @@
-# Foundation
+# Reflexion
 
-🏛️ Base repository for building JavaScript apps or libraries.
-
-<!-- Delete start -->
-
-> To use this template, clone this repository and rename all "Foundation" instances to the name of your library.
-> Set this package to "public" before publishing it.
-
-### Uses
-
-- [Vite](https://vitejs.dev)
-- [Vitest](https://vitest.dev)
-- [TypeScript](https://www.typescriptlang.org)
-- [Prettier](https://prettier.io)
-- [Eslint](https://eslint.org)
-- [Tailwind](https://tailwindcss.com)
-- [Typedoc](https://typedoc.org)
-- [NVM](https://github.com/nvm-sh/nvm)
-
-<!-- Delete end -->
+💎 React component to build layouts based on the CSS Flexbox model.
 
 ### Features
 
-- List the main features of the library
-- Explain how it distinguishes from other libraries
+- Provides a simple abstraction of the CSS Flexbox model
 
 ## Usage
 
 Everything is exported from the main entry-point through an ES6 module:
 
 ```js
-import { add } from "foundation";
+import { Flex } from "reflexion";
 ```
 
 ## Installation
@@ -38,7 +19,7 @@ import { add } from "foundation";
 Install with the [Node Package Manager](https://www.npmjs.com/package/foundation):
 
 ```bash
-npm install foundation
+npm install reflexion
 ```
 
 ## Documentation

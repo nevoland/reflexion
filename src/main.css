@@ -1,3 +1,29 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+.a {
+  background-color: #97c3dc;
+}
+
+.b {
+  background-color: #a5db77;
+}
+
+.c {
+  background-color: #f88587;
+}
+
+.d {
+  background-color: #bea1cd;
+}
+
+.e {
+  background-color: #ffff88;
+}

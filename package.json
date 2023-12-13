@@ -1,5 +1,5 @@
 {
-  "name": "foundation",
+  "name": "reflexion",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +12,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidbonnet/foundation.git"
+    "url": "https://github.com/nevoland/reflexion.git"
   },
   "files": [
     "dist",

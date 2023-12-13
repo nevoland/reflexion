@@ -1,48 +1,118 @@
-foundation
+reflexion
 
-# foundation
+# reflexion
 
 ## Table of contents
 
 ### Type Aliases
 
-- [Any](README.md#any)
+- [Alignment](README.md#alignment)
+- [Direction](README.md#direction)
 
 ### Functions
 
-- [add](README.md#add)
+- [Flex](README.md#flex)
+- [alignFlex](README.md#alignflex)
+- [flex](README.md#flex-1)
 
 ## Type Aliases
 
-### Any
+### Alignment
 
-Ƭ **Any**: `boolean` \| `string` \| `number` \| `object` \| `symbol` \| ``null`` \| `undefined` \| `any`[] \| (...`args`: `any`[]) => `any`
+Ƭ **Alignment**: ``"start"`` \| ``"center"`` \| ``"end"`` \| ``"stretch"``
 
 #### Defined in
 
-[types.ts:1](https://github.com/davidbonnet/foundation/blob/4f05eb8/lib/types.ts#L1)
+[lib/types.ts:3](https://github.com/nevoland/reflexout/blob/adc3ecb/lib/types.ts#L3)
+
+___
+
+### Direction
+
+Ƭ **Direction**: ``"column"`` \| ``"row"``
+
+#### Defined in
+
+[lib/types.ts:1](https://github.com/nevoland/reflexout/blob/adc3ecb/lib/types.ts#L1)
 
 ## Functions
 
-### add
+### Flex
 
-▸ **add**(`a`, `b`): `number`
+▸ **Flex**(`props`, `context?`): ``null`` \| `VNode`\<`any`\>
 
-Returns the sum of the two provided numbers.
+Creates a `div` element with abstracted `flex` properties.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `number` | First number umber. |
-| `b` | `number` | Other number. |
+| Name | Type |
+| :------ | :------ |
+| `props` | `RenderableProps`\<`PropsWithoutRef`\<`FlexProps`\> & {}, `any`\> |
+| `context?` | `any` |
 
 #### Returns
 
-`number`
-
-The sum of both numbers.
+``null`` \| `VNode`\<`any`\>
 
 #### Defined in
 
-[tools/add.ts:8](https://github.com/davidbonnet/foundation/blob/4f05eb8/lib/tools/add.ts#L8)
+node_modules/preact/src/index.d.ts:90
+
+___
+
+### alignFlex
+
+▸ **alignFlex**(`align?`): `undefined` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `align?` | [`Alignment`](README.md#alignment) |
+
+#### Returns
+
+`undefined` \| `string`
+
+#### Defined in
+
+lib/tools/alignFlex.ts:3
+
+___
+
+### flex
+
+▸ **flex**(`container`, `direction`, `wrap`, `grow`, `shrink`, `basis`, `item`, `align`, `justify`, `overflow`): `Object`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `container` | `boolean` |
+| `direction` | [`Direction`](README.md#direction) |
+| `wrap` | `boolean` |
+| `grow` | `boolean` |
+| `shrink` | `boolean` |
+| `basis` | `string` |
+| `item` | `boolean` |
+| `align` | `undefined` \| [`Alignment`](README.md#alignment) |
+| `justify` | `undefined` \| [`Alignment`](README.md#alignment) |
+| `overflow` | `undefined` \| ``"hidden"`` \| ``"auto"`` |
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `alignItems` | `undefined` \| `string` |
+| `alignSelf` | `undefined` \| `string` |
+| `display` | `undefined` \| `string` |
+| `flex` | `undefined` \| `string` |
+| `flexFlow` | `undefined` \| `string` |
+| `justifyContent` | `undefined` \| `string` |
+| `overflow` | `undefined` \| ``"hidden"`` \| ``"auto"`` |
+
+#### Defined in
+
+lib/tools/flex.ts:5
