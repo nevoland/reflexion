@@ -6,14 +6,24 @@
 
 - Provides a simple abstraction of the CSS Flexbox model
 - Follows the Figma auto-layout model with similar properties
+- Sets all necessary Flexbox parameters to enable scrolling
 
 ## Usage
 
-Everything is exported from the main entry-point through an ES6 module:
+The component is exported from the main entry-point through an ES6 module:
 
 ```js
 import { Flex } from "reflexion";
 ```
+
+The `Flex` component uses CSS definitions that must be imported in order to work appropriately:
+
+```css
+@import "reflexion/dist/main.css";
+```
+
+> [!NOTE]
+> The CSS definitions use the `:has` pseudo-class, which is not supported on FireFox. To bypass this limitation, when using FireFox, `Flex` introspects its children with JavaScript code, which can have a slight performance impact.
 
 ## Installation
 

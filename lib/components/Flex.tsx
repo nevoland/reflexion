@@ -40,10 +40,10 @@ function FlexForwarded(
     <div
       class={clsx(
         "Flex",
-        width === "fill" && "width-fill",
-        height === "fill" && "height-fill",
-        direction,
-        scroll && "scroll",
+        width === "fill" && "Flex-width-fill",
+        height === "fill" && "Flex-height-fill",
+        direction && `Flex-${direction}`,
+        scroll && "Flex-scroll",
         className,
       )}
       ref={ref}

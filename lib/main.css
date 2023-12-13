@@ -1,35 +1,35 @@
-.Flex.vertical > .Flex.width-fill {
+.Flex.Flex-vertical > .Flex.Flex-width-fill {
   align-self: stretch;
 }
 
-.Flex.vertical > .Flex.height-fill {
+.Flex.Flex-vertical > .Flex.Flex-height-fill {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0px;
 }
 
-.Flex.vertical > .Flex:not(.height-fill) {
+.Flex.Flex-vertical > .Flex:not(.Flex-height-fill) {
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: auto;
 }
 
-.Flex.horizontal > .Flex.width-fill {
+.Flex.Flex-horizontal > .Flex.Flex-width-fill {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 0px;
 }
 
-.Flex.horizontal > .Flex.height-fill {
+.Flex.Flex-horizontal > .Flex.Flex-height-fill {
   align-self: stretch;
 }
 
-.Flex.horizontal > .Flex:not(.width-fill) {
+.Flex.Flex-horizontal > .Flex:not(.Flex-width-fill) {
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: auto;
 }
 
-.Flex:has(> .Flex.scroll) {
+.Flex:has(> .Flex.Flex-scroll) {
   overflow: hidden;
 }
