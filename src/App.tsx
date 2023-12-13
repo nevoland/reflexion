@@ -2,7 +2,7 @@ import { Flex } from "../lib/main.js";
 
 export function App() {
   return (
-    <Flex class="h-full" direction="vertical" width="fill">
+    <Flex direction="vertical" height="fill" width="fill">
       <Flex
         align="center"
         class="a"
@@ -15,12 +15,7 @@ export function App() {
           <Flex>Sub-title</Flex>
         </Flex>
       </Flex>
-      <Flex
-        class="CONTENT_OK"
-        direction="horizontal"
-        height="fill"
-        width="fill"
-      >
+      <Flex direction="horizontal" height="fill" width="fill">
         <Flex class="b" height="fill" scroll>
           <div class="w-[220px] p-2">
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
