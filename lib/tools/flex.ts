@@ -1,33 +1,33 @@
-import type { Alignment, Direction } from "../types";
+import type { Alignment, Dimension, Direction, Gap } from "../types";
 
+import { adjustGap } from "./adjustGap.js";
 import { alignFlex } from "./alignFlex.js";
+import { flexDirection } from "./flexDirection.js";
 
 export function flex(
-  container: boolean,
-  direction: Direction,
+  direction: Direction | undefined,
   wrap: boolean,
-  grow: boolean,
-  shrink: boolean,
-  basis: string,
-  item: boolean,
   align: Alignment | undefined,
-  justify: Alignment | undefined,
   overflow: "hidden" | "auto" | undefined,
+  gap: Gap | undefined,
+  width?: Dimension,
+  height?: Dimension,
 ) {
   return {
-    alignItems: container ? alignFlex(align) : undefined,
-    alignSelf: !container ? alignFlex(align) : undefined,
-    // Container
-    display: container ? "flex" : undefined,
-    // Item
-    flex: item
-      ? `${grow ? "1" : "0"} ${shrink ? "1" : "0"} ${basis}`
-      : undefined,
-    flexFlow: container
-      ? `${direction} ${wrap ? "wrap" : "nowrap"}`
-      : undefined,
-    justifyContent: container ? alignFlex(justify) : undefined,
-    // Container and item
+    ...adjustGap(
+      align === undefined || direction === undefined
+        ? null
+        : alignFlex(align, direction),
+      gap,
+    ),
+    display: direction === undefined ? undefined : "flex",
+    flexDirection:
+      direction === undefined ? undefined : flexDirection(direction),
+    wrap: wrap ? "wrap" : "nowrap",
     overflow,
+    width:
+      width === "fill" ? undefined : width === "hug" ? "fit-content" : width,
+    height:
+      height === "fill" ? undefined : height === "hug" ? "fit-content" : height,
   };
 }

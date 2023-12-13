@@ -75,5 +75,9 @@
     "vite": "^4.5.0",
     "vite-plugin-module-list": "^2.1.0",
     "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "@nevoland/get-global": "^2.0.2",
+    "clsx": "^2.0.0"
   }
 }

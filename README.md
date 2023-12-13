@@ -5,6 +5,7 @@
 ### Features
 
 - Provides a simple abstraction of the CSS Flexbox model
+- Follows the Figma auto-layout model with similar properties
 
 ## Usage
 

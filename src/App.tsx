@@ -2,23 +2,26 @@ import { Flex } from "../lib/main.js";
 
 export function App() {
   return (
-    <Flex class="h-full" container direction="column">
+    <Flex class="h-full" direction="vertical" width="fill">
       <Flex
-        align="start"
-        class="a h-[70px]"
-        container
-        direction="row"
-        item
-        justify="start"
+        align="center"
+        class="a"
+        direction="horizontal"
+        height={70}
+        width="fill"
       >
-        <Flex align="center" item justify="center">
-          Title
-          <br />
-          Sub-title
+        <Flex align="center" direction="vertical">
+          <Flex>Title</Flex>
+          <Flex>Sub-title</Flex>
         </Flex>
       </Flex>
-      <Flex container direction="row" grow item>
-        <Flex class="b" item scroll>
+      <Flex
+        class="CONTENT_OK"
+        direction="horizontal"
+        height="fill"
+        width="fill"
+      >
+        <Flex class="b" height="fill" scroll>
           <div class="w-[220px] p-2">
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
@@ -29,29 +32,24 @@ export function App() {
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </div>
         </Flex>
-        <Flex class="e w-[200px]" container direction="column">
-          <Flex class="border-b border-black p-2" item>
+        <Flex class="e" direction="vertical" height="fill" width={200}>
+          <Flex class="border-b border-black p-2" width="fill">
             Search…
           </Flex>
-          <Flex grow item scroll>
+          <Flex direction="vertical" height="fill" scroll width="fill">
             {Array.from(Array(20).keys()).map((_, key) => (
-              <Flex
-                align="center"
-                class="px-4 py-2"
-                container
-                item
-                justify="start"
-                key={key}
-              >{`Item ${key + 1}`}</Flex>
+              <Flex class="px-4 py-2" key={key} width="fill">{`Item ${
+                key + 1
+              }`}</Flex>
             ))}
           </Flex>
         </Flex>
-        <Flex class="c" container direction="column" grow item>
-          <Flex class="border-b border-black" item>
+        <Flex class="c" direction="vertical" height="fill" width="fill">
+          <Flex class="border-b border-black" width="fill">
             Sub-title—Lorem ipsum officia ullamco enim et in sint pariatur et
             occaecat cillum deserunt incididunt
           </Flex>
-          <Flex grow item scroll>
+          <Flex height="fill" scroll>
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
             elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
@@ -102,26 +100,25 @@ export function App() {
             reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </Flex>
-          <Flex class="border-t border-black" item>
+          <Flex class="border-t border-black" width="fill">
             Extra options
           </Flex>
         </Flex>
         <Flex
           align="center"
-          class="b w-[200px]"
-          container
-          item
-          justify="center"
+          class="b"
+          direction="vertical"
+          height="fill"
+          width={200}
         >
-          …
+          <Flex>…</Flex>
         </Flex>
       </Flex>
-      <Flex class="d" container direction="row" item>
-        <Flex item>
+      <Flex class="d" direction="horizontal" gap="auto" width="fill">
+        <Flex>
           <button>Cancel</button>
         </Flex>
-        <Flex grow item />
-        <Flex item>
+        <Flex>
           <button>Save</button>
         </Flex>
       </Flex>

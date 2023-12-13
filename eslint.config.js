@@ -153,11 +153,11 @@ export default [
         },
       ],
       "sort-keys": "off",
-      "sortkeys/sort-keys-fix": [
-        "error",
-        "asc",
-        { caseSensitive: false, minKeys: 2, natural: true },
-      ],
+      // "sortkeys/sort-keys-fix": [
+      //   "error",
+      //   "asc",
+      //   { caseSensitive: false, minKeys: 2, natural: true },
+      // ],
       "spaced-comment": [
         "error",
         "always",

@@ -1,25 +1,13 @@
-import { type JSX, type Ref, toChildArray } from "preact";
+import { getGlobal } from "@nevoland/get-global";
+import { clsx } from "clsx";
+import { type Ref, toChildArray } from "preact";
 import { forwardRef } from "preact/compat";
 
 import { flex } from "../tools/flex.js";
-import type { Alignment, Direction } from "../types";
+import { merge } from "../tools/merge.js";
+import type { FlexProps } from "../types";
 
-export type FlexProps = JSX.DOMAttributes<HTMLDivElement> & {
-  class?: string;
-  className?: string;
-  style?: JSX.AllCSSProperties;
-  container?: boolean;
-  direction?: Direction;
-  wrap?: boolean;
-  grow?: boolean;
-  shrink?: boolean;
-  basis?: string;
-  item?: boolean;
-  align?: Alignment;
-  justify?: Alignment;
-  scroll?: boolean;
-  overflow?: "hidden" | "auto";
-};
+const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
 function FlexForwarded(
   {
@@ -27,48 +15,40 @@ function FlexForwarded(
     className = realClassName,
     style,
     children,
-    container = false,
-    direction = "row",
+    direction,
     wrap = false,
-    align = container ? "stretch" : undefined,
-    justify = "start",
+    align = "top-left",
     scroll = false,
-    item = false,
     overflow = scroll
-      ? item
-        ? "auto"
-        : "hidden"
-      : container &&
+      ? "auto"
+      : IS_FIREFOX &&
+        direction !== undefined &&
         toChildArray(children).some(
           (child) =>
             (child as { props?: { scroll?: boolean } }).props?.scroll === true,
         )
       ? "hidden"
       : undefined,
-    grow = false,
-    shrink = overflow === "hidden" ? true : !grow,
-    basis = shrink && overflow !== "hidden" ? "auto" : "0",
+    gap = 0,
+    width,
+    height,
     ...props
   }: FlexProps,
   ref: Ref<HTMLDivElement>,
 ) {
   return (
     <div
-      class={className}
+      class={clsx(
+        "Flex",
+        width === "fill" && "width-fill",
+        height === "fill" && "height-fill",
+        direction,
+        scroll && "scroll",
+        className,
+      )}
       ref={ref}
       style={merge(
-        flex(
-          container,
-          direction,
-          wrap,
-          grow,
-          shrink,
-          basis,
-          item,
-          align,
-          justify,
-          overflow,
-        ),
+        flex(direction, wrap, align, overflow, gap, width, height),
         style,
       )}
       {...props}
@@ -76,10 +56,6 @@ function FlexForwarded(
       {children}
     </div>
   );
-}
-
-function merge<A extends object, B extends object>(a: A, b?: B): A | (A & B) {
-  return b === undefined ? a : { ...a, ...b };
 }
 
 /**

@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "../lib/main.css";
+
 html,
 body,
 #app {
