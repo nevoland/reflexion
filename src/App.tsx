@@ -19,7 +19,7 @@ export function App() {
       </Flex>
       <Flex container direction="row" grow item>
         <Flex class="b" item scroll>
-          <div class="w-[220px] pt-2">
+          <div class="w-[220px] p-2">
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
             elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
