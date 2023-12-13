@@ -1,9 +1,10 @@
+import { type JSX, type Ref, toChildArray } from "preact";
 import { forwardRef } from "preact/compat";
-import { type Ref, toChildArray, type JSX } from "preact";
-import type { Alignment, Direction } from "../types";
-import { flex } from "../tools/flex";
 
-export type FlexProps = JSX.DOMAttributes<HTMLElement> & {
+import { flex } from "../tools/flex.js";
+import type { Alignment, Direction } from "../types";
+
+export type FlexProps = JSX.DOMAttributes<HTMLDivElement> & {
   class?: string;
   className?: string;
   style?: JSX.AllCSSProperties;
@@ -53,6 +54,8 @@ function FlexForwarded(
 ) {
   return (
     <div
+      class={className}
+      ref={ref}
       style={merge(
         flex(
           container,
@@ -68,8 +71,6 @@ function FlexForwarded(
         ),
         style,
       )}
-      class={className}
-      ref={ref}
       {...props}
     >
       {children}
