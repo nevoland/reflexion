@@ -16,7 +16,7 @@ import { Flex } from "reflexion";
 
 ## Installation
 
-Install with the [Node Package Manager](https://www.npmjs.com/package/foundation):
+Install with the [Node Package Manager](https://www.npmjs.com/package/reflexion):
 
 ```bash
 npm install reflexion
