@@ -7,7 +7,7 @@ export function App() {
         align="center"
         class="a"
         direction="horizontal"
-        height={70}
+        height={100}
         width="fill"
       >
         <Flex align="center" direction="vertical">
@@ -16,8 +16,8 @@ export function App() {
         </Flex>
       </Flex>
       <Flex direction="horizontal" height="fill" width="fill">
-        <Flex class="b" height="fill" scroll>
-          <div class="w-[220px] p-2">
+        <Flex class="b" height="fill" scroll width={220}>
+          <div class="p-2">
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
             elit minim ut sed dolore tempor in ut ad velit adipisicing dolore

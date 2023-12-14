@@ -29,7 +29,7 @@ function FlexForwarded(
         )
       ? "hidden"
       : undefined,
-    gap = 0,
+    gap,
     width,
     height,
     ...props
