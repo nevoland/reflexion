@@ -1,4 +1,110 @@
+import { useEffect, useRef, useState } from "preact/hooks";
+
 import { Flex } from "../lib/main.js";
+
+function TableHeaderList({ value }: { value: number }) {
+  const ref = useRef<HTMLDivElement>();
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    ref.current.scrollLeft = value;
+  }, [value]);
+  return (
+    <Flex direction="horizontal" overflow="hidden" ref={ref} width="fill">
+      <Flex class="TableHeaderList" direction="horizontal">
+        <Flex
+          align="left"
+          class="bg-slate-300"
+          direction="horizontal"
+          height={38}
+          width={200}
+        >
+          A
+        </Flex>
+        <Flex
+          align="left"
+          class="bg-slate-300"
+          direction="horizontal"
+          height={38}
+          width={200}
+        >
+          B
+        </Flex>
+        <Flex
+          align="left"
+          class="bg-slate-300"
+          direction="horizontal"
+          height={38}
+          width={200}
+        >
+          C
+        </Flex>
+      </Flex>
+    </Flex>
+  );
+}
+
+function TableRow() {
+  return (
+    <Flex direction="horizontal">
+      <Flex align="left" direction="horizontal" height={36} width={200}>
+        A
+      </Flex>
+      <Flex align="left" direction="horizontal" height={36} width={200}>
+        B
+      </Flex>
+      <Flex align="left" direction="horizontal" height={36} width={200}>
+        C
+      </Flex>
+    </Flex>
+  );
+}
+
+function TableRowList({ onChange }: { onChange: (value: number) => void }) {
+  return (
+    <Flex
+      class="TableRowList"
+      height="fill"
+      onScroll={(event) => onChange(event.currentTarget.scrollLeft)}
+      scroll
+      width="fill"
+    >
+      <Flex direction="vertical">
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+        <TableRow />
+      </Flex>
+    </Flex>
+  );
+}
+
+function Table() {
+  const [value, onChange] = useState(0);
+  return (
+    <Flex class="Table" direction="vertical" height="fill" width="fill">
+      <TableHeaderList value={value} />
+      <TableRowList onChange={onChange} />
+    </Flex>
+  );
+}
 
 export function App() {
   return (
@@ -26,6 +132,9 @@ export function App() {
             reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </div>
+        </Flex>
+        <Flex direction="vertical" height="fill" width={400}>
+          <Table />
         </Flex>
         <Flex class="e" direction="vertical" height="fill" width={200}>
           <Flex class="border-b border-black p-2" width="fill">

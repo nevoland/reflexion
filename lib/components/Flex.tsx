@@ -34,7 +34,7 @@ function FlexForwarded(
     height,
     ...props
   }: FlexProps,
-  ref: Ref<HTMLDivElement>,
+  ref: Ref<HTMLDivElement | undefined>,
 ) {
   return (
     <div
@@ -46,7 +46,7 @@ function FlexForwarded(
         scroll && "Flex-scroll",
         className,
       )}
-      ref={ref}
+      ref={ref as Ref<HTMLDivElement>}
       style={merge(
         flex(direction, wrap, align, overflow, gap, width, height),
         style,
