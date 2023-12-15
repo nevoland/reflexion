@@ -31,7 +31,11 @@ function FlexForwarded(
       : undefined,
     gap,
     width,
+    minWidth,
+    maxWidth,
     height,
+    minHeight,
+    maxHeight,
     ...props
   }: FlexProps & JSX.DOMAttributes<HTMLDivElement>,
   ref: Ref<HTMLDivElement | undefined>,
@@ -59,7 +63,11 @@ function FlexForwarded(
           overflow,
           gap,
           width,
+          minWidth,
+          maxWidth,
           height,
+          minHeight,
+          maxHeight,
         ),
         style,
       )}

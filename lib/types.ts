@@ -33,10 +33,30 @@ export type FlexProps = {
    */
   width?: Dimension;
   /**
+   * Element minimum width. If set to `"fill"`, the element horizontally fills the parent container.
+   * If set to `"hug"`, it hugs the content of its children.
+   */
+  minWidth?: Dimension;
+  /**
+   * Element maximum width. If set to `"fill"`, the element horizontally fills the parent container.
+   * If set to `"hug"`, it hugs the content of its children.
+   */
+  maxWidth?: Dimension;
+  /**
    * Element height. If set to `"fill"`, the element vertically fills the parent container.
    * If set to `"hug"`, it hugs the content of its children.
    */
   height?: Dimension;
+  /**
+   * Element minimum height. If set to `"fill"`, the element vertically fills the parent container.
+   * If set to `"hug"`, it hugs the content of its children.
+   */
+  minHeight?: Dimension;
+  /**
+   * Element maximum height. If set to `"fill"`, the element vertically fills the parent container.
+   * If set to `"hug"`, it hugs the content of its children.
+   */
+  maxHeight?: Dimension;
   /**
    * Element container setting that sets the flow direction of the children. If set, the element is considered to be a container.
    */

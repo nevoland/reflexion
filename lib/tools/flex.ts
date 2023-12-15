@@ -11,7 +11,11 @@ export function flex(
   overflow: "hidden" | "auto" | undefined,
   gap: Gap | undefined,
   width?: Dimension,
+  minWidth?: Dimension,
+  maxWidth?: Dimension,
   height?: Dimension,
+  minHeight?: Dimension,
+  maxHeight?: Dimension,
 ) {
   return {
     ...adjustGap(
@@ -27,7 +31,15 @@ export function flex(
     overflow,
     width:
       width === "fill" ? undefined : width === "hug" ? "fit-content" : width,
+    minWidth: sizeFromDimension(minWidth),
+    maxWidth: sizeFromDimension(maxWidth),
     height:
       height === "fill" ? undefined : height === "hug" ? "fit-content" : height,
+    minHeight: sizeFromDimension(minHeight),
+    maxHeight: sizeFromDimension(maxHeight),
   };
+}
+
+function sizeFromDimension(value: Dimension | undefined) {
+  return value === "fill" ? "100%" : value === "hug" ? "fit-content" : value;
 }
