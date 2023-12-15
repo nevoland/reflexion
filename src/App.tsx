@@ -13,31 +13,13 @@ function TableHeaderList({ value }: { value: number }) {
   return (
     <Flex direction="horizontal" overflow="hidden" ref={ref} width="fill">
       <Flex class="TableHeaderList" direction="horizontal">
-        <Flex
-          align="left"
-          class="bg-slate-300"
-          direction="horizontal"
-          height={38}
-          width={200}
-        >
+        <Flex align="left" class="bg-slate-300" height={38} width={200}>
           A
         </Flex>
-        <Flex
-          align="left"
-          class="bg-slate-300"
-          direction="horizontal"
-          height={38}
-          width={200}
-        >
+        <Flex align="left" class="bg-slate-300" height={38} width={200}>
           B
         </Flex>
-        <Flex
-          align="left"
-          class="bg-slate-300"
-          direction="horizontal"
-          height={38}
-          width={200}
-        >
+        <Flex align="left" class="bg-slate-300" height={38} width={200}>
           C
         </Flex>
       </Flex>

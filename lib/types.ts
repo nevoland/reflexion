@@ -17,7 +17,7 @@ export type Dimension = "hug" | "fill" | string | number;
 
 export type Gap = "auto" | number | string;
 
-export type FlexProps = JSX.DOMAttributes<HTMLDivElement> & {
+export type FlexProps = {
   /**
    * Element classes.
    */
@@ -46,7 +46,7 @@ export type FlexProps = JSX.DOMAttributes<HTMLDivElement> & {
    */
   wrap?: boolean;
   /**
-   * Element container setting that sets the alignment of its children.
+   * Element container setting that sets the alignment of its children. If set, the element is considered to be a container.
    */
   align?: Alignment;
   /**

@@ -1,6 +1,6 @@
 import { getGlobal } from "@nevoland/get-global";
 import { clsx } from "clsx";
-import { type Ref, toChildArray } from "preact";
+import { type JSX, type Ref, toChildArray } from "preact";
 import { forwardRef } from "preact/compat";
 
 import { flex } from "../tools/flex.js";
@@ -16,13 +16,13 @@ function FlexForwarded(
     style,
     children,
     direction,
+    align,
     wrap = false,
-    align = "top-left",
     scroll = false,
     overflow = scroll
       ? "auto"
       : IS_FIREFOX &&
-        direction !== undefined &&
+        (direction !== undefined || align !== undefined) &&
         toChildArray(children).some(
           (child) =>
             (child as { props?: { scroll?: boolean } }).props?.scroll === true,
@@ -33,22 +33,34 @@ function FlexForwarded(
     width,
     height,
     ...props
-  }: FlexProps,
+  }: FlexProps & JSX.DOMAttributes<HTMLDivElement>,
   ref: Ref<HTMLDivElement | undefined>,
 ) {
+  const currentDirection =
+    direction ?? (align === undefined ? undefined : "horizontal");
+  const currentAlign =
+    align ?? (direction !== undefined ? "top-left" : undefined);
   return (
     <div
       class={clsx(
         "Flex",
         width === "fill" && "Flex-width-fill",
         height === "fill" && "Flex-height-fill",
-        direction && `Flex-${direction}`,
+        currentDirection && `Flex-${currentDirection}`,
         scroll && "Flex-scroll",
         className,
       )}
       ref={ref as Ref<HTMLDivElement>}
       style={merge(
-        flex(direction, wrap, align, overflow, gap, width, height),
+        flex(
+          currentDirection,
+          wrap,
+          currentAlign,
+          overflow,
+          gap,
+          width,
+          height,
+        ),
         style,
       )}
       {...props}
@@ -59,6 +71,6 @@ function FlexForwarded(
 }
 
 /**
- * Creates a `div` element with abstracted `flex` properties.
+ * Creates a `div` element with abstracted CSS Flexbox properties.
  */
 export const Flex = forwardRef(FlexForwarded);
