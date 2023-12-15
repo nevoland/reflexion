@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "preact/hooks";
 
 import { Flex } from "../lib/main.js";
@@ -11,16 +12,22 @@ function TableHeaderList({ value }: { value: number }) {
     ref.current.scrollLeft = value;
   }, [value]);
   return (
-    <Flex direction="horizontal" overflow="hidden" ref={ref} width="fill">
+    <Flex
+      class="d"
+      direction="horizontal"
+      overflow="hidden"
+      ref={ref}
+      width="fill"
+    >
       <Flex class="TableHeaderList" direction="horizontal">
-        <Flex align="left" class="bg-slate-300" height={38} width={200}>
-          A
+        <Flex align="left" height={38} width={200}>
+          Header A
         </Flex>
-        <Flex align="left" class="bg-slate-300" height={38} width={200}>
-          B
+        <Flex align="left" height={38} width={200}>
+          Header B
         </Flex>
-        <Flex align="left" class="bg-slate-300" height={38} width={200}>
-          C
+        <Flex align="left" height={38} width={200}>
+          Header C
         </Flex>
       </Flex>
     </Flex>
@@ -29,15 +36,20 @@ function TableHeaderList({ value }: { value: number }) {
 
 function TableRow() {
   return (
-    <Flex direction="horizontal">
-      <Flex align="left" direction="horizontal" height={36} width={200}>
-        A
+    <Flex class="a border-b border-black" direction="horizontal">
+      <Flex align="left" height={36} width={200}>
+        <span class="w-full truncate">
+          Tempora aut sint corrupti. Repudiandae sit dolorem ut quia eos nulla
+          nemo et. Et ut dicta mollitia eligendi molestiae. Voluptate minima
+          aperiam id voluptatum voluptatibus quos nulla adipisci. Sit at velit
+          facere culpa magni earum.
+        </span>
       </Flex>
       <Flex align="left" direction="horizontal" height={36} width={200}>
-        B
+        Gregg Reynolds
       </Flex>
       <Flex align="left" direction="horizontal" height={36} width={200}>
-        C
+        Charles Cremin
       </Flex>
     </Flex>
   );
@@ -52,36 +64,46 @@ function TableRowList({ onChange }: { onChange: (value: number) => void }) {
       scroll
       width="fill"
     >
-      <Flex direction="vertical">
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
-        <TableRow />
+      <Flex class="c" direction="vertical" height={4000} width="hug">
+        <Flex
+          direction="vertical"
+          style={{ transform: `translateY(${3 * 36}px)` }}
+        >
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+          <TableRow />
+        </Flex>
       </Flex>
     </Flex>
   );
 }
 
-function Table() {
+function Table({ class: className }: { class?: string }) {
   const [value, onChange] = useState(0);
   return (
-    <Flex class="Table" direction="vertical" height="fill" width="fill">
+    <Flex
+      class={clsx("Table", className)}
+      direction="vertical"
+      height="fill"
+      width="fill"
+    >
       <TableHeaderList value={value} />
       <TableRowList onChange={onChange} />
     </Flex>
@@ -115,8 +137,8 @@ export function App() {
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </div>
         </Flex>
-        <Flex direction="vertical" height="fill" width={400}>
-          <Table />
+        <Flex class="relative" direction="vertical" height="fill" width="fill">
+          <Table class="absolute inset-0" />
         </Flex>
         <Flex class="e" direction="vertical" height="fill" width={200}>
           <Flex class="border-b border-black p-2" width="fill">
@@ -135,7 +157,7 @@ export function App() {
             Sub-title—Lorem ipsum officia ullamco enim et in sint pariatur et
             occaecat cillum deserunt incididunt
           </Flex>
-          <Flex height="fill" scroll>
+          <Flex class="a" height="fill" scroll>
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
             elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
