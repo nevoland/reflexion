@@ -1,3 +1,5 @@
+import type { JSX } from "preact/jsx-runtime";
+
 import type { Alignment, Dimension, Direction, Gap } from "../types";
 
 import { adjustGap } from "./adjustGap.js";
@@ -16,7 +18,7 @@ export function flex(
   height?: Dimension,
   minHeight?: Dimension,
   maxHeight?: Dimension,
-) {
+): JSX.CSSProperties {
   return {
     ...adjustGap(
       align === undefined || direction === undefined
@@ -27,7 +29,7 @@ export function flex(
     display: direction === undefined ? undefined : "flex",
     flexDirection:
       direction === undefined ? undefined : flexDirection(direction),
-    wrap: wrap ? "wrap" : "nowrap",
+    flexWrap: wrap ? "wrap" : "nowrap",
     overflow,
     width:
       width === "fill" ? undefined : width === "hug" ? "fit-content" : width,
