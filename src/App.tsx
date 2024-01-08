@@ -36,7 +36,11 @@ function TableHeaderList({ value }: { value: number }) {
 
 function TableRow() {
   return (
-    <Flex class="a border-b border-black" direction="horizontal">
+    <Flex
+      class="a border-b border-black"
+      direction="horizontal"
+      minWidth="fill"
+    >
       <Flex align="left" height={36} width={200}>
         <span class="w-full truncate">
           Tempora aut sint corrupti. Repudiandae sit dolorem ut quia eos nulla
@@ -64,9 +68,16 @@ function TableRowList({ onChange }: { onChange: (value: number) => void }) {
       scroll
       width="fill"
     >
-      <Flex class="c" direction="vertical" height={4000} width="hug">
+      <Flex
+        class="c"
+        direction="vertical"
+        height={4000}
+        minWidth="fill"
+        width="hug"
+      >
         <Flex
           direction="vertical"
+          minWidth="fill"
           style={{ transform: `translateY(${3 * 36}px)` }}
         >
           <TableRow />
