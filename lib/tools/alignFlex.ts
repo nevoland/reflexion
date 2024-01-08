@@ -8,7 +8,7 @@ export function alignFlex(align: Alignment, direction: Direction) {
         alignItems: "flex-start",
         justifyContent: "flex-start",
       };
-    case "top-center":
+    case "top":
       return {
         alignItems: vertical ? "center" : "flex-start",
         justifyContent: vertical ? "flex-start" : "center",
@@ -38,7 +38,7 @@ export function alignFlex(align: Alignment, direction: Direction) {
         alignItems: vertical ? "flex-start" : "flex-end",
         justifyContent: vertical ? "flex-end" : "flex-start",
       };
-    case "bottom-center":
+    case "bottom":
       return {
         alignItems: vertical ? "center" : "flex-end",
         justifyContent: vertical ? "flex-end" : "center",

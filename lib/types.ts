@@ -4,13 +4,13 @@ export type Direction = "vertical" | "horizontal";
 
 export type Alignment =
   | "top-left"
-  | "top-center"
+  | "top"
   | "top-right"
   | "left"
   | "center"
   | "right"
   | "bottom-left"
-  | "bottom-center"
+  | "bottom"
   | "bottom-right";
 
 export type Dimension = "hug" | "fill" | string | number;
