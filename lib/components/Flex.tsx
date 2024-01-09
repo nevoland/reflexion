@@ -11,6 +11,7 @@ const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
 function FlexForwarded(
   {
+    id,
     class: realClassName,
     className = realClassName,
     style,
@@ -46,6 +47,7 @@ function FlexForwarded(
     align ?? (direction !== undefined ? "top-left" : undefined);
   return (
     <div
+      id={id}
       class={clsx(
         "Flex",
         width === "fill" && "Flex-width-fill",
