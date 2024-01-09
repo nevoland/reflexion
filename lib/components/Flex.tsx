@@ -47,7 +47,6 @@ function FlexForwarded(
     align ?? (direction !== undefined ? "top-left" : undefined);
   return (
     <div
-      id={id}
       class={clsx(
         "Flex",
         width === "fill" && "Flex-width-fill",
@@ -56,6 +55,7 @@ function FlexForwarded(
         scroll && "Flex-scroll",
         className,
       )}
+      id={id}
       ref={ref as Ref<HTMLDivElement>}
       style={merge(
         flex(
