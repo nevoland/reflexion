@@ -19,6 +19,10 @@ export type Gap = "auto" | number | string;
 
 export type FlexProps = {
   /**
+   * Element id.
+   */
+  id?: string;
+  /**
    * Element classes.
    */
   class?: string;
