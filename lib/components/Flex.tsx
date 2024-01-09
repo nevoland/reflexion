@@ -11,7 +11,6 @@ const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
 function FlexForwarded(
   {
-    id,
     class: realClassName,
     className = realClassName,
     style,
@@ -55,7 +54,6 @@ function FlexForwarded(
         scroll && "Flex-scroll",
         className,
       )}
-      id={id}
       ref={ref as Ref<HTMLDivElement>}
       style={merge(
         flex(
