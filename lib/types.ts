@@ -1,4 +1,4 @@
-import type { JSX } from "preact";
+import type { ComponentType, JSX, Ref } from "preact";
 
 export type Direction = "vertical" | "horizontal";
 
@@ -17,7 +17,15 @@ export type Dimension = "hug" | "fill" | string | number;
 
 export type Gap = "auto" | number | string;
 
-export type FlexProps = {
+export type FlexableComponent = keyof JSX.IntrinsicElements & string;
+
+export type FlexProps<E extends HTMLElement> = {
+  /**
+   * Container component to use to render.
+   *
+   * @default "div"
+   */
+  Component?: JSX.ElementType;
   /**
    * Element classes.
    */
@@ -81,4 +89,5 @@ export type FlexProps = {
    * Element overflow setting. Controlled by the `scroll` property.
    */
   overflow?: "hidden" | "auto";
+  ref?: Ref<E | undefined>;
 };

@@ -9,8 +9,9 @@ import type { FlexProps } from "../types";
 
 const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
-function FlexForwarded(
+function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
   {
+    Component = "div",
     class: realClassName,
     className = realClassName,
     style,
@@ -37,15 +38,15 @@ function FlexForwarded(
     minHeight,
     maxHeight,
     ...props
-  }: FlexProps & JSX.DOMAttributes<HTMLDivElement>,
-  ref: Ref<HTMLDivElement | undefined>,
+  }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps<E>>,
+  ref: Ref<E | undefined>,
 ) {
   const currentDirection =
     direction ?? (align === undefined ? undefined : "horizontal");
   const currentAlign =
     align ?? (direction !== undefined ? "top-left" : undefined);
   return (
-    <div
+    <Component
       class={clsx(
         "Flex",
         width === "fill" && "Flex-width-fill",
@@ -54,7 +55,7 @@ function FlexForwarded(
         scroll && "Flex-scroll",
         className,
       )}
-      ref={ref as Ref<HTMLDivElement>}
+      ref={ref as Ref<HTMLElement>}
       style={merge(
         flex(
           currentDirection,
@@ -74,11 +75,11 @@ function FlexForwarded(
       {...props}
     >
       {children}
-    </div>
+    </Component>
   );
 }
 
 /**
  * Creates a `div` element with abstracted CSS Flexbox properties.
  */
-export const Flex = forwardRef(FlexForwarded);
+export const Flex = forwardRef(FlexForwarded) as typeof FlexForwarded;
