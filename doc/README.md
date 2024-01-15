@@ -10,6 +10,7 @@ reflexion
 - [Dimension](README.md#dimension)
 - [Direction](README.md#direction)
 - [FlexProps](README.md#flexprops)
+- [FlexableComponent](README.md#flexablecomponent)
 - [Gap](README.md#gap)
 
 ### Functions
@@ -25,11 +26,11 @@ reflexion
 
 ### Alignment
 
-Ƭ **Alignment**: ``"top-left"`` \| ``"top-center"`` \| ``"top-right"`` \| ``"left"`` \| ``"center"`` \| ``"right"`` \| ``"bottom-left"`` \| ``"bottom-center"`` \| ``"bottom-right"``
+Ƭ **Alignment**: ``"top-left"`` \| ``"top"`` \| ``"top-right"`` \| ``"left"`` \| ``"center"`` \| ``"right"`` \| ``"bottom-left"`` \| ``"bottom"`` \| ``"bottom-right"``
 
 #### Defined in
 
-[lib/types.ts:5](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/types.ts#L5)
+[types.ts:5](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L5)
 
 ___
 
@@ -39,7 +40,7 @@ ___
 
 #### Defined in
 
-[lib/types.ts:16](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/types.ts#L16)
+[types.ts:16](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L16)
 
 ___
 
@@ -49,25 +50,37 @@ ___
 
 #### Defined in
 
-[lib/types.ts:3](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/types.ts#L3)
+[types.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L3)
 
 ___
 
 ### FlexProps
 
-Ƭ **FlexProps**: `Object`
+Ƭ **FlexProps**\<`E`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `E` | extends `HTMLElement` |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `Component?` | `JSX.ElementType` | Container component to use to render. **`Default`** ```ts "div" ``` |
 | `align?` | [`Alignment`](README.md#alignment) | Element container setting that sets the alignment of its children. If set, the element is considered to be a container. |
 | `class?` | `string` | Element classes. |
 | `className?` | `string` | - |
 | `direction?` | [`Direction`](README.md#direction) | Element container setting that sets the flow direction of the children. If set, the element is considered to be a container. |
 | `gap?` | [`Gap`](README.md#gap) | Element container setting that set the gap betwen its children. If set to `"auto"`, the gap is evenly distributed between the children. |
 | `height?` | [`Dimension`](README.md#dimension) | Element height. If set to `"fill"`, the element vertically fills the parent container. If set to `"hug"`, it hugs the content of its children. |
+| `maxHeight?` | [`Dimension`](README.md#dimension) | Element maximum height. If set to `"fill"`, the element vertically fills the parent container. If set to `"hug"`, it hugs the content of its children. |
+| `maxWidth?` | [`Dimension`](README.md#dimension) | Element maximum width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
+| `minHeight?` | [`Dimension`](README.md#dimension) | Element minimum height. If set to `"fill"`, the element vertically fills the parent container. If set to `"hug"`, it hugs the content of its children. |
+| `minWidth?` | [`Dimension`](README.md#dimension) | Element minimum width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
 | `overflow?` | ``"hidden"`` \| ``"auto"`` | Element overflow setting. Controlled by the `scroll` property. |
+| `ref?` | `Ref`\<`E` \| `undefined`\> | - |
 | `scroll?` | `boolean` | Element container setting that enables scrolling if its content goes out of bounds. |
 | `style?` | `JSX.AllCSSProperties` | Element styles. These override any style abstracted by the other properties. |
 | `width?` | [`Dimension`](README.md#dimension) | Element width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
@@ -75,7 +88,17 @@ ___
 
 #### Defined in
 
-[lib/types.ts:20](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/types.ts#L20)
+[types.ts:22](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L22)
+
+___
+
+### FlexableComponent
+
+Ƭ **FlexableComponent**: keyof `JSX.IntrinsicElements` & `string`
+
+#### Defined in
+
+[types.ts:20](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L20)
 
 ___
 
@@ -85,30 +108,36 @@ ___
 
 #### Defined in
 
-[lib/types.ts:18](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/types.ts#L18)
+[types.ts:18](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L18)
 
 ## Functions
 
 ### Flex
 
-▸ **Flex**(`props`, `context?`): ``null`` \| `VNode`\<`any`\>
+▸ **Flex**\<`E`\>(`«destructured»`, `ref`): `Element`
 
 Creates a `div` element with abstracted CSS Flexbox properties.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `E` | extends `HTMLElement` = `HTMLDivElement` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `props` | `RenderableProps`\<`PropsWithoutRef`\<[`FlexProps`](README.md#flexprops) & `DOMAttributes`\<`HTMLDivElement`\>\> & {}, `any`\> |
-| `context?` | `any` |
+| `«destructured»` | [`FlexProps`](README.md#flexprops)\<`E`\> & `Omit`\<`HTMLAttributes`\<`E`\>, keyof [`FlexProps`](README.md#flexprops)\<`E`\>\> |
+| `ref` | `Ref`\<`undefined` \| `E`\> |
 
 #### Returns
 
-``null`` \| `VNode`\<`any`\>
+`Element`
 
 #### Defined in
 
-node_modules/preact/src/index.d.ts:90
+[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/48e29fc/lib/components/Flex.tsx#L12)
 
 ___
 
@@ -129,7 +158,7 @@ ___
 
 #### Defined in
 
-[lib/tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/tools/adjustGap.ts#L3)
+[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/adjustGap.ts#L3)
 
 ___
 
@@ -155,13 +184,13 @@ ___
 
 #### Defined in
 
-[lib/tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/tools/alignFlex.ts#L3)
+[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/alignFlex.ts#L3)
 
 ___
 
 ### flex
 
-▸ **flex**(`direction`, `wrap`, `align`, `overflow`, `gap`, `width?`, `height?`): `Object`
+▸ **flex**(`direction`, `wrap`, `align`, `overflow`, `gap`, `width?`, `minWidth?`, `maxWidth?`, `height?`, `minHeight?`, `maxHeight?`): `JSX.CSSProperties`
 
 #### Parameters
 
@@ -173,24 +202,19 @@ ___
 | `overflow` | `undefined` \| ``"auto"`` \| ``"hidden"`` |
 | `gap` | `undefined` \| [`Gap`](README.md#gap) |
 | `width?` | [`Dimension`](README.md#dimension) |
+| `minWidth?` | [`Dimension`](README.md#dimension) |
+| `maxWidth?` | [`Dimension`](README.md#dimension) |
 | `height?` | [`Dimension`](README.md#dimension) |
+| `minHeight?` | [`Dimension`](README.md#dimension) |
+| `maxHeight?` | [`Dimension`](README.md#dimension) |
 
 #### Returns
 
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `display` | `undefined` \| `string` |
-| `flexDirection` | `undefined` \| `string` |
-| `height` | `undefined` \| [`Dimension`](README.md#dimension) |
-| `overflow` | `undefined` \| ``"auto"`` \| ``"hidden"`` |
-| `width` | `undefined` \| [`Dimension`](README.md#dimension) |
-| `wrap` | `string` |
+`JSX.CSSProperties`
 
 #### Defined in
 
-[lib/tools/flex.ts:7](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/tools/flex.ts#L7)
+[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/flex.ts#L9)
 
 ___
 
@@ -210,7 +234,7 @@ ___
 
 #### Defined in
 
-[lib/tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/tools/flexDirection.ts#L3)
+[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/flexDirection.ts#L3)
 
 ___
 
@@ -238,4 +262,4 @@ ___
 
 #### Defined in
 
-[lib/tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/9ce59ed/lib/tools/merge.ts#L1)
+[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/merge.ts#L1)

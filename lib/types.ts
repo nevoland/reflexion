@@ -1,4 +1,4 @@
-import type { ComponentType, JSX, Ref } from "preact";
+import type { JSX, Ref } from "preact";
 
 export type Direction = "vertical" | "horizontal";
 
