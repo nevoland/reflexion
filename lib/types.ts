@@ -19,7 +19,7 @@ export type Gap = "auto" | number | string;
 
 export type FlexableComponent = keyof JSX.IntrinsicElements & string;
 
-export type FlexProps<E extends HTMLElement> = {
+export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
   /**
    * Container component to use to render.
    *
