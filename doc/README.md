@@ -30,7 +30,7 @@ reflexion
 
 #### Defined in
 
-[types.ts:5](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L5)
+[types.ts:5](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L5)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L16)
+[types.ts:16](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L16)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[types.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L3)
+[types.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L3)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `E` | extends `HTMLElement` |
+| `E` | extends `HTMLElement` = `HTMLDivElement` |
 
 #### Type declaration
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[types.ts:22](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L22)
+[types.ts:22](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L22)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[types.ts:20](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L20)
+[types.ts:20](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L20)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[types.ts:18](https://github.com/nevoland/reflexion/blob/48e29fc/lib/types.ts#L18)
+[types.ts:18](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L18)
 
 ## Functions
 
@@ -137,7 +137,7 @@ Creates a `div` element with abstracted CSS Flexbox properties.
 
 #### Defined in
 
-[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/48e29fc/lib/components/Flex.tsx#L12)
+[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/b4459ce/lib/components/Flex.tsx#L12)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/adjustGap.ts#L3)
+[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/adjustGap.ts#L3)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/alignFlex.ts#L3)
+[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/alignFlex.ts#L3)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/flex.ts#L9)
+[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/flex.ts#L9)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/flexDirection.ts#L3)
+[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/flexDirection.ts#L3)
 
 ___
 
@@ -262,4 +262,4 @@ ___
 
 #### Defined in
 
-[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/48e29fc/lib/tools/merge.ts#L1)
+[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/merge.ts#L1)
