@@ -38,7 +38,7 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     minHeight,
     maxHeight,
     ...props
-  }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps<E>>,
+  }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps>,
   ref: Ref<E | undefined>,
 ) {
   const currentDirection =
