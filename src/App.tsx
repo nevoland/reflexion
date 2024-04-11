@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { Flex } from "../lib/main.js";
 
 function TableHeaderList({ value }: { value: number }) {
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!ref.current) {
       return;

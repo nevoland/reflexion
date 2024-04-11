@@ -39,7 +39,7 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     maxHeight,
     ...props
   }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps>,
-  ref: Ref<E | undefined>,
+  ref?: Ref<E>,
 ) {
   const currentDirection =
     direction ?? (align === undefined ? undefined : "horizontal");
@@ -55,7 +55,7 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
         scroll && "Flex-scroll",
         className,
       )}
-      ref={ref as Ref<HTMLElement>}
+      ref={ref}
       style={merge(
         flex(
           currentDirection,
