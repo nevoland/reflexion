@@ -90,7 +90,7 @@ export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
    */
   overflow?: "hidden" | "auto";
   /**
-   * Explicitely prevent the element to shrink if set to `true`.
+   * Explicitly prevent the element from shrinking if set to `true`.
    */
   noShrink?: true | undefined;
   ref?: Ref<E>;
