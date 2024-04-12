@@ -30,7 +30,7 @@ reflexion
 
 #### Defined in
 
-[types.ts:5](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L5)
+[types.ts:5](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L5)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L16)
+[types.ts:16](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L16)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[types.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L3)
+[types.ts:3](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L3)
 
 ___
 
@@ -79,8 +79,9 @@ ___
 | `maxWidth?` | [`Dimension`](README.md#dimension) | Element maximum width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
 | `minHeight?` | [`Dimension`](README.md#dimension) | Element minimum height. If set to `"fill"`, the element vertically fills the parent container. If set to `"hug"`, it hugs the content of its children. |
 | `minWidth?` | [`Dimension`](README.md#dimension) | Element minimum width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
+| `noShrink?` | ``true`` | Explicitely prevent the element to shrink if set to `true`. |
 | `overflow?` | ``"hidden"`` \| ``"auto"`` | Element overflow setting. Controlled by the `scroll` property. |
-| `ref?` | `Ref`\<`E` \| `undefined`\> | - |
+| `ref?` | `Ref`\<`E`\> | - |
 | `scroll?` | `boolean` | Element container setting that enables scrolling if its content goes out of bounds. |
 | `style?` | `JSX.AllCSSProperties` | Element styles. These override any style abstracted by the other properties. |
 | `width?` | [`Dimension`](README.md#dimension) | Element width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
@@ -88,7 +89,7 @@ ___
 
 #### Defined in
 
-[types.ts:22](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L22)
+[types.ts:22](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L22)
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 #### Defined in
 
-[types.ts:20](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L20)
+[types.ts:20](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L20)
 
 ___
 
@@ -108,13 +109,13 @@ ___
 
 #### Defined in
 
-[types.ts:18](https://github.com/nevoland/reflexion/blob/b4459ce/lib/types.ts#L18)
+[types.ts:18](https://github.com/nevoland/reflexion/blob/83b2922/lib/types.ts#L18)
 
 ## Functions
 
 ### Flex
 
-▸ **Flex**\<`E`\>(`«destructured»`, `ref`): `Element`
+▸ **Flex**\<`E`\>(`«destructured»`, `ref?`): `Element`
 
 Creates a `div` element with abstracted CSS Flexbox properties.
 
@@ -128,8 +129,8 @@ Creates a `div` element with abstracted CSS Flexbox properties.
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | [`FlexProps`](README.md#flexprops)\<`E`\> & `Omit`\<`HTMLAttributes`\<`E`\>, keyof [`FlexProps`](README.md#flexprops)\<`E`\>\> |
-| `ref` | `Ref`\<`undefined` \| `E`\> |
+| `«destructured»` | [`FlexProps`](README.md#flexprops)\<`E`\> & `Omit`\<`HTMLAttributes`\<`E`\>, keyof [`FlexProps`](README.md#flexprops)\> |
+| `ref?` | `Ref`\<`E`\> |
 
 #### Returns
 
@@ -137,7 +138,7 @@ Creates a `div` element with abstracted CSS Flexbox properties.
 
 #### Defined in
 
-[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/b4459ce/lib/components/Flex.tsx#L12)
+[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/83b2922/lib/components/Flex.tsx#L12)
 
 ___
 
@@ -158,7 +159,7 @@ ___
 
 #### Defined in
 
-[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/adjustGap.ts#L3)
+[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/83b2922/lib/tools/adjustGap.ts#L3)
 
 ___
 
@@ -184,13 +185,13 @@ ___
 
 #### Defined in
 
-[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/alignFlex.ts#L3)
+[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/83b2922/lib/tools/alignFlex.ts#L3)
 
 ___
 
 ### flex
 
-▸ **flex**(`direction`, `wrap`, `align`, `overflow`, `gap`, `width?`, `minWidth?`, `maxWidth?`, `height?`, `minHeight?`, `maxHeight?`): `JSX.CSSProperties`
+▸ **flex**(`direction`, `wrap`, `align`, `overflow`, `gap`, `width?`, `minWidth?`, `maxWidth?`, `height?`, `minHeight?`, `maxHeight?`, `noShrink?`): `JSX.CSSProperties`
 
 #### Parameters
 
@@ -207,6 +208,7 @@ ___
 | `height?` | [`Dimension`](README.md#dimension) |
 | `minHeight?` | [`Dimension`](README.md#dimension) |
 | `maxHeight?` | [`Dimension`](README.md#dimension) |
+| `noShrink?` | ``true`` |
 
 #### Returns
 
@@ -214,7 +216,7 @@ ___
 
 #### Defined in
 
-[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/flex.ts#L9)
+[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/83b2922/lib/tools/flex.ts#L9)
 
 ___
 
@@ -234,7 +236,7 @@ ___
 
 #### Defined in
 
-[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/flexDirection.ts#L3)
+[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/83b2922/lib/tools/flexDirection.ts#L3)
 
 ___
 
@@ -262,4 +264,4 @@ ___
 
 #### Defined in
 
-[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/b4459ce/lib/tools/merge.ts#L1)
+[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/83b2922/lib/tools/merge.ts#L1)
