@@ -18,6 +18,7 @@ export function flex(
   height?: Dimension,
   minHeight?: Dimension,
   maxHeight?: Dimension,
+  noShrink?: true | undefined,
 ): JSX.CSSProperties {
   return {
     ...adjustGap(
@@ -30,6 +31,7 @@ export function flex(
     flexDirection:
       direction === undefined ? undefined : flexDirection(direction),
     flexWrap: wrap ? "wrap" : "nowrap",
+    flexShrink: noShrink ? 0 : undefined,
     overflow,
     width:
       width === "fill" ? undefined : width === "hug" ? "fit-content" : width,

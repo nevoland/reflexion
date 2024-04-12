@@ -37,6 +37,7 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     height,
     minHeight,
     maxHeight,
+    noShrink,
     ...props
   }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps>,
   ref?: Ref<E>,
@@ -69,6 +70,7 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
           height,
           minHeight,
           maxHeight,
+          noShrink,
         ),
         style,
       )}

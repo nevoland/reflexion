@@ -137,7 +137,7 @@ export function App() {
         </Flex>
       </Flex>
       <Flex direction="horizontal" height="fill" width="fill">
-        <Flex class="b" height="fill" scroll width={220}>
+        <Flex class="b" height="fill" noShrink scroll width={220}>
           <div class="p-2">
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
@@ -151,7 +151,7 @@ export function App() {
         <Flex class="relative" direction="vertical" height="fill" width="fill">
           <Table class="absolute inset-0" />
         </Flex>
-        <Flex class="e" direction="vertical" height="fill" width={200}>
+        <Flex class="e" direction="vertical" height="fill" noShrink width={300}>
           <Flex class="border-b border-black p-2" width="fill">
             Search…
           </Flex>

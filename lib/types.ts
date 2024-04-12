@@ -89,5 +89,9 @@ export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
    * Element overflow setting. Controlled by the `scroll` property.
    */
   overflow?: "hidden" | "auto";
+  /**
+   * Explicitely prevent the element to shrink if set to `true`.
+   */
+  noShrink?: true | undefined;
   ref?: Ref<E>;
 };
