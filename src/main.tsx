@@ -2,9 +2,8 @@
 
 import { render } from "preact";
 
-import { observeDarkMode } from "../lib/tools.ts";
-
 import { App } from "./App.tsx";
+import { observeDarkMode } from "./tools.ts";
 
 import "./main.css";
 
