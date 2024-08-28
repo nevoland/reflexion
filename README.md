@@ -28,15 +28,21 @@ The `Flex` component uses CSS definitions that must be imported in order to work
 ### Quick start
 
 ```tsx
-<Flex width="fill" height="fill">
-  <Flex direction="vertical" gap={8}>
-    <Flex>Toolbar</Flex>
-    <Flex direction="vertical" height="fill" scroll>
-      Main view
+import { Flex } from "reflexion";
+
+function Main() {
+  return (
+    <Flex width="fill" height="fill">
+      <Flex direction="vertical" gap={8}>
+        <Flex>Toolbar</Flex>
+        <Flex direction="vertical" height="fill" scroll>
+          Main view
+        </Flex>
+        <Flex>Footer</Flex>
+      </Flex>
     </Flex>
-    <Flex>Footer</Flex>
-  </Flex>
-</Flex>
+  );
+}
 ```
 
 ## Installation
