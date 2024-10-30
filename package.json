@@ -84,6 +84,8 @@
   },
   "dependencies": {
     "@nevoland/get-global": "^2.0.2",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "futurise": "^1.7.1",
+    "realue": "^4.11.13"
   }
 }
