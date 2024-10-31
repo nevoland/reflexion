@@ -1,7 +1,12 @@
 import { getGlobal } from "@nevoland/get-global";
 import { clsx } from "clsx";
-import { type JSX, type Ref, toChildArray } from "preact";
-import { forwardRef } from "preact/compat";
+
+import {
+  type JSX,
+  type Ref,
+  toChildArray,
+  forwardRef,
+} from "../dependencies.js";
 
 import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
@@ -23,13 +28,14 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     overflow = scroll
       ? "auto"
       : IS_FIREFOX &&
-        (direction !== undefined || align !== undefined) &&
-        toChildArray(children).some(
-          (child) =>
-            (child as { props?: { scroll?: boolean } }).props?.scroll === true,
-        )
-      ? "hidden"
-      : undefined,
+          (direction !== undefined || align !== undefined) &&
+          toChildArray(children).some(
+            (child) =>
+              (child as { props?: { scroll?: boolean } }).props?.scroll ===
+              true,
+          )
+        ? "hidden"
+        : undefined,
     gap,
     width,
     minWidth,
