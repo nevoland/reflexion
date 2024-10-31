@@ -34,6 +34,14 @@ export default defineConfig({
       outputPath: resolve("src/components.ts"),
       rootPath: resolve("src/components"),
     }),
+    moduleList({
+      mode: {
+        extension: "js",
+        language: "ts",
+      },
+      outputPath: resolve("src/tools.ts"),
+      rootPath: resolve("src/tools"),
+    }),
     preact(),
   ],
 });

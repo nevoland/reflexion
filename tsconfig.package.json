@@ -4,11 +4,9 @@
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
-    "allowImportingTsExtensions": false,
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "allowImportingTsExtensions": false
   },
   "include": ["lib"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "extends": "./tsconfig.base.json"
+  "extends": "./tsconfig.json"
 }
