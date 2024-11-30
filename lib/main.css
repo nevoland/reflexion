@@ -41,3 +41,62 @@
 .Flex:has(> .Flex.Flex-scroll) {
   overflow: hidden;
 }
+
+.Scroller {
+  z-index: 5;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  user-select: none;
+  cursor: default;
+}
+
+.Scroller-top {
+  top: 0px;
+}
+
+.Scroller-bottom {
+  bottom: 0px;
+}
+
+.ScrollBar {
+  & > .Flex {
+    @apply rounded bg-black opacity-40 hover:opacity-60 dark:bg-white;
+  }
+
+  &.Flex-vertical {
+    @apply min-w-[10px];
+
+    & > .Flex {
+      @apply min-w-[2px];
+
+      transition-property: min-width, width;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+
+    &:hover {
+      & > .Flex {
+        @apply min-w-[7px];
+      }
+    }
+  }
+
+  &.Flex-horizontal {
+    @apply min-h-[10px];
+
+    & > .Flex {
+      @apply min-h-[2px];
+
+      transition-property: min-height, height;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+
+    &:hover {
+      & > .Flex {
+        @apply min-h-[7px];
+      }
+    }
+  }
+}

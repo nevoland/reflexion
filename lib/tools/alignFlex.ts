@@ -1,6 +1,6 @@
-import type { Alignment, Direction } from "../types";
+import type { Location, Direction } from "../types";
 
-export function alignFlex(align: Alignment, direction: Direction) {
+export function alignFlex(align: Location, direction: Direction) {
   const vertical = direction === "vertical";
   switch (align) {
     case "top-left":

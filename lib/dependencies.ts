@@ -1,2 +1,9 @@
-export { type JSX, type Ref, toChildArray } from "preact";
-export { forwardRef } from "preact/compat";
+export { toChildArray } from "preact";
+export {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "preact/compat";

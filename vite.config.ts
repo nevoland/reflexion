@@ -28,6 +28,14 @@ export default defineConfig({
     }),
     moduleList({
       mode: {
+        language: "ts",
+        type: true,
+      },
+      outputPath: resolve("lib/types.ts"),
+      rootPath: resolve("lib/types"),
+    }),
+    moduleList({
+      mode: {
         extension: "js",
         language: "ts",
       },

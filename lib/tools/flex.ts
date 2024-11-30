@@ -1,6 +1,6 @@
 import type { JSX } from "preact/jsx-runtime";
 
-import type { Alignment, Dimension, Direction, Gap } from "../types";
+import type { Location, Dimension, Direction, Gap } from "../types";
 
 import { adjustGap } from "./adjustGap.js";
 import { alignFlex } from "./alignFlex.js";
@@ -9,7 +9,7 @@ import { flexDirection } from "./flexDirection.js";
 export function flex(
   direction: Direction | undefined,
   wrap: boolean,
-  align: Alignment | undefined,
+  align: Location | undefined,
   overflow: "hidden" | "auto" | undefined,
   gap: Gap | undefined,
   width?: Dimension,

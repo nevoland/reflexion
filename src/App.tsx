@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "preact/hooks";
 
-import { Flex } from "../lib/main.js";
+import { Flex, Scroll } from "../lib/main.js";
 
 function TableHeaderList({ value }: { value: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -137,8 +137,36 @@ export function App() {
         </Flex>
       </Flex>
       <Flex direction="horizontal" height="fill" width="fill">
-        <Flex class="b" height="fill" noShrink scroll width={220}>
-          <div class="p-2">
+        <Scroll class="b" height="fill" noShrink width={220}>
+          <div class="p-2" style={{ width: 600, height: 3000 }}>
+            Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
+            cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
+            elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
+            nostrud minim veniam sit sit ex incididunt dolore magna in
+            incididunt id nostrud dolor ut irure proident deserunt cillum
+            reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
+            culpa proident et ut labore nulla magna est quis ut enim laborum.
+            Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
+            cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
+            elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
+            nostrud minim veniam sit sit ex incididunt dolore magna in
+            incididunt id nostrud dolor ut irure proident deserunt cillum
+            reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
+            culpa proident et ut labore nulla magna est quis ut enim laborum.
+            Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
+            cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
+            elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
+            nostrud minim veniam sit sit ex incididunt dolore magna in
+            incididunt id nostrud dolor ut irure proident deserunt cillum
+            reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
+            culpa proident et ut labore nulla magna est quis ut enim laborum.
+            Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
+            cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
+            elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
+            nostrud minim veniam sit sit ex incididunt dolore magna in
+            incididunt id nostrud dolor ut irure proident deserunt cillum
+            reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
+            culpa proident et ut labore nulla magna est quis ut enim laborum.
             Lorem ipsum officia ullamco enim et in sint pariatur et occaecat
             cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut
             elit minim ut sed dolore tempor in ut ad velit adipisicing dolore
@@ -147,7 +175,7 @@ export function App() {
             reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </div>
-        </Flex>
+        </Scroll>
         <Flex class="relative" direction="vertical" height="fill" width="fill">
           <Table class="absolute inset-0" />
         </Flex>
