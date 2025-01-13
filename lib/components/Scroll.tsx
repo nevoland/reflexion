@@ -14,6 +14,7 @@ import { EMPTY_ARRAY, setProperty } from "unchangeable";
 import type {
   Component,
   ComponentChild,
+  ComponentChildren,
   JSX,
   Ref,
 } from "../dependencies/types";
@@ -67,7 +68,7 @@ export type ScrollProps = {
   class?: string;
   onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
   onScrollEnd?: () => void;
-  children: JSX.Element;
+  children: ComponentChildren;
   corner?: ComponentChild;
   /**
    * Component to render when the cursor reaches the edge of the rendered element to trigger automatic scrolling. Not setting it disables automatic scrolling.
