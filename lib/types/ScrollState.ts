@@ -1,1 +1,1 @@
-export type ScrollState = ScrollToOptions;
+export type ScrollState = Required<Pick<ScrollToOptions, "top" | "left">>;

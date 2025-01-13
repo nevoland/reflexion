@@ -87,7 +87,7 @@
     "@nevoland/get-global": "^2.1.0",
     "clsx": "^2.1.1",
     "futurise": "^1.9.0",
-    "realue": "^5.0.0-alpha.15",
+    "realue": "^5.0.0-alpha.22",
     "unchangeable": "^1.7.3"
   }
 }

@@ -4,19 +4,18 @@ import { interval } from "futurise";
 import {
   type Name,
   type ValueMutator,
-  useRefList,
+  useObject,
   useReferencedState,
   useResizeEffect,
+  useSyncedState,
 } from "realue";
 import { EMPTY_ARRAY, setProperty } from "unchangeable";
 
 import type {
   Component,
   ComponentChild,
-  ComponentChildren,
   JSX,
   Ref,
-  StateMutator,
 } from "../dependencies/types";
 import {
   forwardRef,
@@ -27,20 +26,36 @@ import {
   useState,
 } from "../dependencies.js";
 import type {
-  AutoScrollerProps,
   Direction,
   FlexProps,
   Location,
   ScrollState,
+  ScrollerProps,
   Size,
 } from "../types";
 
 import { Flex } from "./Flex.js";
+import {
+  ScrollBar as ScrollBarDefault,
+  type ScrollBarProps,
+} from "./ScrollBar.jsx";
+import {
+  ScrollContent as ScrollContentDefault,
+  type ScrollContentProps,
+} from "./ScrollContent.jsx";
 
 export type ScrollProps = {
   value?: ScrollState;
   name?: Name;
   onChange?: NoInfer<ValueMutator<ScrollState>>;
+  /**
+   * Offset left to add to the `ScrollContent` component (provided directly to it).
+   */
+  offsetLeft?: number;
+  /**
+   * Offset top to add to the `ScrollContent` component (provided directly to it).
+   */
+  offsetTop?: number;
   /**
    * Indicates which axis should be synchronized when the `value` changes.
    */
@@ -52,17 +67,22 @@ export type ScrollProps = {
   class?: string;
   onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
   onScrollEnd?: () => void;
-  children: ComponentChildren;
-  /**
-   * Whether scrolling is automatically triggered when the cursor reaches the edge of the child element.
-   */
-  auto?: boolean;
-  /**
-   * Whether scrollbars should be hidden or not.
-   */
-  hiddenScrollbar?: boolean;
+  children: JSX.Element;
   corner?: ComponentChild;
-  AutoScroller?: Component<AutoScrollerProps>;
+  /**
+   * Component to render when the cursor reaches the edge of the rendered element to trigger automatic scrolling. Not setting it disables automatic scrolling.
+   */
+  Scroller?: Component<ScrollerProps>;
+  /**
+   * Component to use to render the content. Receives the `top` and `left` scroll position.
+   */
+  ScrollContent?: Component<ScrollContentProps>;
+  /**
+   * Component to use to render scroll bars. Can be set to `false` to disable scroll bars.
+   */
+  ScrollBar?: Component<ScrollBarProps> | false;
+  contentHeight?: number;
+  contentWidth?: number;
 } & FlexProps;
 
 type ScrollDirection = {
@@ -81,14 +101,15 @@ const DEFAULT_SCROLL_DIRECTION: ScrollDirection = {
 
 const SCROLL_SPEED = 5;
 
+const INITIAL_VALUE = { left: 0, top: 0 };
+
 const INITIAL_SIZE = { height: 0, width: 0 };
 
 export const Scroll = forwardRef(function Scroll(
   {
-    value,
+    value = INITIAL_VALUE,
     name = "",
     onChange,
-    size: providedContentSize,
     sync,
     class: className,
     overflow,
@@ -96,111 +117,89 @@ export const Scroll = forwardRef(function Scroll(
     onScrollEnd,
     width = "fill",
     height = "fill",
-    auto = false,
-    hiddenScrollbar = false,
+    contentHeight,
+    contentWidth,
+    offsetLeft = 0,
+    offsetTop = 0,
     corner,
-    AutoScroller,
+    Scroller,
+    ScrollContent = ScrollContentDefault,
+    ScrollBar = ScrollBarDefault,
+    children,
     ...props
   }: ScrollProps,
   parentRef?: Ref<HTMLDivElement>,
 ) {
-  const valueRef = useRef<typeof value>();
-
-  const [size, setSize] = useReferencedState(INITIAL_SIZE);
-  const [contentSize, setContentSize] = useReferencedState(INITIAL_SIZE);
-  useMemo(() => {
-    if (providedContentSize == null) {
-      return;
-    }
-    const size = contentSize.current;
-    const { height = size.height, width = size.width } = providedContentSize;
-    contentSize.current = setProperty(
-      setProperty(size, "height", height),
-      "width",
-      width,
-    );
-  }, [providedContentSize?.height, providedContentSize?.width]);
-
-  const [node, setNode] = useState<HTMLDivElement | null>(null);
-  const nodeRef = useRef(node);
-  nodeRef.current = node;
-
-  const ref = useRefList(parentRef, setNode);
-
-  const [scroll, setScroll] = useState({ scrollTop: 0, scrollLeft: 0 });
-
-  const [scrollDirection, onChangeScrollDirection] = useState<ScrollDirection>(
-    DEFAULT_SCROLL_DIRECTION,
+  const { 0: sizeRef, 1: setSize } = useReferencedState(INITIAL_SIZE);
+  const { 0: contentSizeRef, 1: setContentSize } =
+    useReferencedState(INITIAL_SIZE);
+  const { 0: nodeRef, 1: setNode } = useReferencedState<HTMLElement | null>(
+    null,
   );
-  const scrollDirectionRef = useRef(scrollDirection);
 
-  const onScroll = useCallback(
-    (event: JSX.TargetedUIEvent<HTMLDivElement>) => {
-      const element = event.currentTarget;
-      const value = {
-        top: element.scrollTop,
-        left: element.scrollLeft,
+  const clampedValue = useMemo(() => {
+    const size = sizeRef.current;
+    const contentSize = contentSizeRef.current;
+    const maxLeft = clamp(contentSize.width - size.width, 0);
+    const maxTop = clamp(contentSize.height - size.height, 0);
+    const left = clamp(value.left, 0, maxLeft);
+    const top = clamp(value.top, 0, maxTop);
+    if (left !== value.left || top !== value.top) {
+      return {
+        left,
+        top,
       };
-      setScroll({
-        scrollTop: element.scrollTop,
-        scrollLeft: element.scrollLeft,
-      });
-      parentOnScroll?.(event);
-      const currentValue = valueRef.current;
-      if (
-        currentValue?.left === value.left &&
-        currentValue?.top === value.top
-      ) {
-        return;
-      }
-      valueRef.current = value;
-      onChange?.(value, name);
-      if (AutoScroller) {
-        onCheckScrollDirection();
-      }
-    },
-    [onChange, name, parentOnScroll, AutoScroller],
+    }
+    return value;
+  }, [value, sizeRef.current, contentSizeRef.current]);
+
+  const { 0: scroll, 1: setScroll } = useSyncedState<ScrollState>(
+    clampedValue,
+    onChange,
   );
 
-  // useLayoutEffect(() => {
-  //   const currentValue = valueRef.current;
-  //   if (
-  //     currentValue === value ||
-  //     (sync === "both" &&
-  //       currentValue?.left === value?.left &&
-  //       currentValue?.top === value?.top) ||
-  //     (sync === "horizontal" && currentValue?.left === value?.left) ||
-  //     (sync === "vertical" && currentValue?.top === value?.top)
-  //   ) {
-  //     return;
-  //   }
-  //   valueRef.current = value;
-  //   nodeRef.current?.scrollTo(
-  //     sync === "both"
-  //       ? value
-  //       : sync === "horizontal"
-  //         ? { left: value?.left }
-  //         : { top: value?.top },
-  //   );
-  // }, [value]);
+  const valueRef = useRef<typeof value>(scroll);
+  valueRef.current = scroll;
+  const property = useObject({ value: scroll, name, onChange: setScroll });
 
-  const onCheckScrollDirection = useCallback(() => {
-    if (node == null) {
+  const scrollBy = useCallback(
+    (left: number, top: number) => {
+      const contentSize = contentSizeRef.current;
+      const size = sizeRef.current;
+      setScroll((state) => ({
+        left: clamp(
+          state.left + left,
+          0,
+          clamp(contentSize.width - size.width, 0, Infinity),
+        ),
+        top: clamp(
+          state.top + top,
+          0,
+          clamp(contentSize.height - size.height, 0, Infinity),
+        ),
+      }));
+    },
+    [setScroll],
+  );
+
+  const { 0: scrollDirectionRef, 1: onChangeScrollDirection } =
+    useReferencedState<ScrollDirection>(DEFAULT_SCROLL_DIRECTION);
+
+  useMemo(() => {
+    if (Scroller == null) {
       return;
     }
-    const {
-      scrollTop,
-      scrollHeight,
-      scrollLeft,
-      scrollWidth,
-      clientHeight,
-      clientWidth,
-    } = node;
+
+    const { top, left } = valueRef.current;
+    const { height, width } = sizeRef.current;
+    const { height: contentHeight, width: contentWidth } =
+      contentSizeRef.current;
+
     const nextScrollDirection: ScrollDirection = {
-      top: scrollTop > 0,
-      bottom: scrollTop < scrollHeight - clientHeight,
-      left: scrollLeft > 0,
-      right: scrollLeft < scrollWidth - clientWidth,
+      top: top > 0,
+      bottom: top < contentHeight - height,
+      left: left > 0,
+      right: left < contentWidth - width,
     };
     const scrollDirection = scrollDirectionRef.current;
     if (
@@ -213,61 +212,52 @@ export const Scroll = forwardRef(function Scroll(
     }
     scrollDirectionRef.current = nextScrollDirection;
     onChangeScrollDirection(nextScrollDirection);
-  }, [node]);
+  }, [valueRef.current, sizeRef.current, contentSizeRef.current, Scroller]);
 
-  const onWheel = useCallback<JSX.WheelEventHandler<HTMLDivElement>>(
+  useMemo(() => {
+    if (contentHeight == null && contentWidth == null) {
+      return;
+    }
+    let contentSize = contentSizeRef.current;
+    if (contentHeight != null && contentSize.height !== contentHeight) {
+      contentSize = setProperty(contentSize, "height", contentHeight);
+    }
+    if (contentWidth != null && contentSize.width !== contentWidth) {
+      contentSize = setProperty(contentSize, "width", contentWidth);
+    }
+    if (contentSize !== contentSizeRef.current) {
+      setContentSize(contentSize);
+    }
+  }, [contentHeight, contentWidth, Scroller]);
+
+  const onWheel = useCallback<
+    (event: JSX.TargetedWheelEvent<HTMLDivElement>) => void
+  >(
     (event) => {
       event.preventDefault();
       event.stopPropagation();
-      nodeRef.current?.scrollBy({
-        left: event.deltaX,
-        top: event.deltaY,
-        behavior: "instant",
-      });
-      if (auto) {
-        onCheckScrollDirection();
-      }
+      scrollBy(event.deltaX, event.deltaY);
     },
-    [auto, onCheckScrollDirection],
+    [Scroller],
   );
 
   const onResize = useCallback(() => {
-    const node = nodeRef.current;
-    if (node == null) {
-      return;
-    }
-    const height = node.clientHeight;
-    const width = node.clientWidth;
-    const currentSize = size.current;
-    if (currentSize.height === height && currentSize.width === width) {
-      return;
-    }
-    setSize({ height, width });
-    // onCheckScrollDirection();
-  }, EMPTY_ARRAY);
-
-  const onResizeContent = useCallback(() => {
     const node = nodeRef.current?.firstElementChild;
     if (node == null) {
       return;
     }
     const height = node.clientHeight;
     const width = node.clientWidth;
-    const currentContentSize = contentSize.current;
-    if (
-      currentContentSize.height === height &&
-      currentContentSize.width === width
-    ) {
+    const size = sizeRef.current;
+    if (size.height === height && size.width === width) {
       return;
     }
-    setContentSize({ height, width });
-    // onCheckScrollDirection();
-  }, EMPTY_ARRAY);
+    setSize({ height, width });
+  }, [Scroller]);
 
-  useResizeEffect(node, onResize);
-  useResizeEffect(node?.firstElementChild, onResizeContent);
+  useResizeEffect(nodeRef.current?.firstElementChild, onResize);
 
-  const [autoScroll, onChangeAutoScroll] = useState<ScrollState | undefined>();
+  const [autoScroll, onChangeAutoScroll] = useState<ScrollState>();
   const onAutoScrollStart = useCallback(
     (
       location: Location,
@@ -276,13 +266,13 @@ export const Scroll = forwardRef(function Scroll(
     ) => {
       switch (location) {
         case "top":
-          return onChangeAutoScroll({ top: -verticalSpeed });
+          return onChangeAutoScroll({ left: 0, top: -verticalSpeed });
         case "bottom":
-          return onChangeAutoScroll({ top: verticalSpeed });
+          return onChangeAutoScroll({ left: 0, top: verticalSpeed });
         case "left":
-          return onChangeAutoScroll({ left: -horizontalSpeed });
+          return onChangeAutoScroll({ left: -horizontalSpeed, top: 0 });
         case "right":
-          return onChangeAutoScroll({ left: horizontalSpeed });
+          return onChangeAutoScroll({ left: horizontalSpeed, top: 0 });
         default:
         // Ignore
       }
@@ -291,17 +281,17 @@ export const Scroll = forwardRef(function Scroll(
   );
   const onAutoScrollStop = useCallback(() => onChangeAutoScroll(undefined), []);
   useEffect(() => {
+    const node = nodeRef.current;
     if (!autoScroll || !node) {
       return;
     }
     return interval(0, () => {
-      node.scrollBy(autoScroll);
-      onCheckScrollDirection();
+      scrollBy(autoScroll.left, autoScroll.top);
     });
-  }, [autoScroll, node, onCheckScrollDirection]);
+  }, [autoScroll, nodeRef.current]);
 
-  const currentContentSize = contentSize.current;
-  const currentSize = size.current;
+  const currentSize = sizeRef.current;
+  const currentContentSize = contentSizeRef.current;
   const hasVerticalScroll = currentContentSize.height > currentSize.height;
   const hasHorizontalScroll = currentContentSize.width > currentSize.width;
 
@@ -311,38 +301,40 @@ export const Scroll = forwardRef(function Scroll(
       direction="vertical"
       height={height}
       onWheel={onWheel}
+      ref={parentRef}
       width={width}
+      {...props}
     >
-      <Flex direction="horizontal" height="fill" overflow="hidden" width="fill">
-        <Flex
-          class="Scroll-content"
-          height="fill"
-          maxHeight="fill"
-          onScroll={onScroll}
-          onScrollEnd={onScrollEnd}
-          overflow="hidden"
-          ref={ref}
-          width="fill"
-          {...props}
-        />
-        {hasVerticalScroll && (
+      <Flex
+        direction="horizontal"
+        height="fill"
+        overflow="hidden"
+        ref={setNode}
+        width="fill"
+      >
+        <ScrollContent
+          left={valueRef.current.left}
+          offsetLeft={offsetLeft}
+          offsetTop={offsetTop}
+          onChangeContentSize={setContentSize}
+          top={valueRef.current.top}
+        >
+          {children}
+        </ScrollContent>
+        {ScrollBar && hasVerticalScroll && (
           <ScrollBar
+            {...property("top")}
             contentSize={currentContentSize.height}
-            direction="vertical"
-            onChange={setScroll}
             size={currentSize.height}
-            value={scroll.scrollTop}
           />
         )}
       </Flex>
-      {hasHorizontalScroll && (
+      {ScrollBar && hasHorizontalScroll && (
         <Flex direction="horizontal" height="hug" width="fill">
           <ScrollBar
+            {...property("left")}
             contentSize={currentContentSize.width}
-            direction="horizontal"
-            onChange={setScroll}
             size={currentSize.width}
-            value={scroll.scrollLeft}
           />
           {hasVerticalScroll && (
             <Flex class="Scroll-corner" height="fill">
@@ -351,16 +343,30 @@ export const Scroll = forwardRef(function Scroll(
           )}
         </Flex>
       )}
-      {AutoScroller && scrollDirection.top && (
-        <AutoScroller
-          location="top"
+      {Scroller && scrollDirectionRef.current.top && (
+        <Scroller
+          name="top"
           onAutoScrollStart={onAutoScrollStart}
           onAutoScrollStop={onAutoScrollStop}
         />
       )}
-      {AutoScroller && scrollDirection.bottom && (
-        <AutoScroller
-          location="bottom"
+      {Scroller && scrollDirectionRef.current.left && (
+        <Scroller
+          name="left"
+          onAutoScrollStart={onAutoScrollStart}
+          onAutoScrollStop={onAutoScrollStop}
+        />
+      )}
+      {Scroller && scrollDirectionRef.current.bottom && (
+        <Scroller
+          name="bottom"
+          onAutoScrollStart={onAutoScrollStart}
+          onAutoScrollStop={onAutoScrollStop}
+        />
+      )}
+      {Scroller && scrollDirectionRef.current.right && (
+        <Scroller
+          name="right"
           onAutoScrollStart={onAutoScrollStart}
           onAutoScrollStop={onAutoScrollStop}
         />
@@ -368,52 +374,3 @@ export const Scroll = forwardRef(function Scroll(
     </Flex>
   );
 });
-
-type ScrollBarProps = {
-  value: number | undefined;
-  onChange: StateMutator<{ scrollTop: number; scrollLeft: number }>;
-  size: number | undefined;
-  contentSize: number | undefined;
-  direction: FlexProps["direction"];
-  minLength?: number;
-};
-
-function ScrollBar({
-  value = 0,
-  size,
-  contentSize,
-  minLength = 20,
-  direction,
-}: ScrollBarProps) {
-  if (contentSize === undefined || size === undefined || contentSize <= size) {
-    return null;
-  }
-  const knobSize = clamp((size / contentSize) * size, minLength, size);
-  const gutterSize = size - knobSize;
-  const offset = clamp(
-    value * (gutterSize / (contentSize - size)),
-    0,
-    gutterSize,
-  );
-  return direction === "vertical" ? (
-    <Flex
-      align="top"
-      class="ScrollBar"
-      direction="vertical"
-      height="fill"
-      width="hug"
-    >
-      <Flex height={knobSize} style={{ marginTop: offset }} />
-    </Flex>
-  ) : (
-    <Flex
-      align="left"
-      class="ScrollBar"
-      direction="horizontal"
-      height="hug"
-      width="fill"
-    >
-      <Flex style={{ marginLeft: offset }} width={knobSize} />
-    </Flex>
-  );
-}

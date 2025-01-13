@@ -1,6 +1,6 @@
 import type { JSX } from "preact/jsx-runtime";
 
-import type { Location, Dimension, Direction, Gap } from "../types";
+import type { Dimension, Direction, Gap, Location } from "../types";
 
 import { adjustGap } from "./adjustGap.js";
 import { alignFlex } from "./alignFlex.js";

@@ -1,4 +1,4 @@
-import type { Location, Direction } from "../types";
+import type { Direction, Location } from "../types";
 
 export function alignFlex(align: Location, direction: Direction) {
   const vertical = direction === "vertical";

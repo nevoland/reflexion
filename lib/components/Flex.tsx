@@ -7,7 +7,7 @@ import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
 import type { FlexProps } from "../types";
 
-const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
+const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent ?? "");
 
 function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
   {

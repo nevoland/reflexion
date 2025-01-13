@@ -1,7 +1,9 @@
+/* eslint-disable no-irregular-whitespace */
 import { clsx } from "clsx";
+import type { ComponentChildren } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
-import { Flex, Scroll } from "../lib/main.js";
+import { Flex, Scroll, Scroller } from "../lib/main.js";
 
 function TableHeaderList({ value }: { value: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -121,7 +123,37 @@ function Table({ class: className }: { class?: string }) {
   );
 }
 
+function CustomScrollContent({
+  top,
+  left,
+  children,
+}: {
+  top: number;
+  left: number;
+  children: ComponentChildren;
+}) {
+  return (
+    <Flex
+      class="Scroll-content"
+      height="fill"
+      maxHeight="fill"
+      overflow="hidden"
+      width="fill"
+    >
+      {left} / {top}
+      <br />
+      <div class="relative">
+        <div class="absolute" style={{ top, left }}>
+          {children}
+        </div>
+      </div>
+    </Flex>
+  );
+}
+
 export function App() {
+  const [scroll, setScroll] = useState({ left: 0, top: 0 });
+
   return (
     <Flex direction="vertical" height="fill" width="fill">
       <Flex
@@ -175,6 +207,48 @@ export function App() {
             reprehenderit velit occaecat magna commodo sunt pariatur do nostrud
             culpa proident et ut labore nulla magna est quis ut enim laborum.
           </div>
+        </Scroll>
+        <Scroll class="b" height="fill" noShrink width={220}>
+          <div>
+            <button
+              class="m-1 block border"
+              onClick={() => {
+                setScroll({ left: 0, top: 0 });
+              }}
+            >
+              0
+            </button>
+            <button
+              class="m-1 block border"
+              onClick={() => {
+                setScroll({ left: 0, top: 500_000_000_000 });
+              }}
+            >
+              500 000 000 000
+            </button>
+            <button
+              class="m-1 block border"
+              onClick={() => {
+                setScroll({ left: 0, top: 5_000_000_000_000 });
+              }}
+            >
+              5 000 000 000 000
+            </button>
+          </div>
+        </Scroll>
+        <Scroll
+          ScrollContent={CustomScrollContent}
+          Scroller={Scroller}
+          class="b"
+          contentHeight={1_000_000_000_000}
+          contentWidth={4000}
+          height="fill"
+          noShrink
+          onChange={setScroll}
+          value={scroll}
+          width={220}
+        >
+          <div>Custom.</div>
         </Scroll>
         <Flex class="relative" direction="vertical" height="fill" width="fill">
           <Table class="absolute inset-0" />

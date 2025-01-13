@@ -31,3 +31,95 @@ body,
 .e {
   @apply bg-yellow-300 dark:bg-yellow-900;
 }
+
+.Scroll {
+  position: relative;
+}
+
+.Scroller {
+  background-color: gold;
+  color: black;
+  z-index: 5;
+  position: absolute;
+  user-select: none;
+  cursor: default;
+}
+
+.Scroller-top {
+  left: 0px;
+  right: 0px;
+  top: 0px;
+}
+
+.Scroller-bottom {
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.Scroller-left {
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.Scroller-right {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.ScrollBar {
+  z-index: 10;
+
+  & > .Flex {
+    @apply rounded bg-black opacity-40 hover:opacity-60 dark:bg-white;
+    &.ScrollBar-knob-active {
+      @apply opacity-60;
+    }
+  }
+
+  &.Flex-vertical {
+    @apply min-w-[10px];
+
+    & > .Flex {
+      @apply min-w-[2px];
+
+      transition-property: min-width, width;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+
+      &.ScrollBar-knob-active {
+        @apply min-w-[7px];
+      }
+    }
+
+    &:hover {
+      & > .Flex {
+        @apply min-w-[7px];
+      }
+    }
+  }
+
+  &.Flex-horizontal {
+    @apply min-h-[10px];
+
+    & > .Flex {
+      @apply min-h-[2px];
+
+      transition-property: min-height, height;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+
+      &.ScrollBar-knob-active {
+        @apply min-h-[7px];
+      }
+    }
+
+    &:hover {
+      & > .Flex {
+        @apply min-h-[7px];
+      }
+    }
+  }
+}
