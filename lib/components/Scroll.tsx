@@ -38,8 +38,8 @@ import type {
 } from "../types";
 
 import { Flex } from "./Flex.js";
-import { ScrollBar as ScrollBarDefault } from "./ScrollBar.jsx";
-import { ScrollContent as ScrollContentDefault } from "./ScrollContent.jsx";
+import { ScrollBar as ScrollBarDefault } from "./ScrollBar.js";
+import { ScrollContent as ScrollContentDefault } from "./ScrollContent.js";
 
 export type ScrollProps = {
   value?: ScrollState;
