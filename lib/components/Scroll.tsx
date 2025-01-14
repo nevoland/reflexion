@@ -15,6 +15,7 @@ import type {
   Component,
   ComponentChild,
   ComponentChildren,
+  Dispatch,
   JSX,
   Ref,
 } from "../dependencies/types";
@@ -49,6 +50,8 @@ export type ScrollProps = {
   value?: ScrollState;
   name?: Name;
   onChange?: NoInfer<ValueMutator<ScrollState>>;
+  onSizeChange: Dispatch<Size>;
+  onContentSizeChange: Dispatch<Size>;
   /**
    * Offset left to add to the `ScrollContent` component (provided directly to it).
    */
@@ -114,10 +117,11 @@ export const Scroll = forwardRef(function Scroll(
     sync,
     class: className,
     overflow,
-    onScroll: parentOnScroll,
     onScrollEnd,
     width = "fill",
     height = "fill",
+    onSizeChange: parentOnSizeChange,
+    onContentSizeChange: parentOnContentSizeChange,
     contentHeight,
     contentWidth,
     offsetLeft = 0,
@@ -131,9 +135,20 @@ export const Scroll = forwardRef(function Scroll(
   }: ScrollProps,
   parentRef?: Ref<HTMLDivElement>,
 ) {
-  const { 0: sizeRef, 1: setSize } = useReferencedState(INITIAL_SIZE);
-  const { 0: contentSizeRef, 1: setContentSize } =
-    useReferencedState(INITIAL_SIZE);
+  const { 0: size, 1: setSize } = useSyncedState(
+    INITIAL_SIZE,
+    parentOnSizeChange,
+  );
+  const sizeRef = useRef(size);
+  sizeRef.current = size;
+
+  const { 0: contentSize, 1: setContentSize } = useSyncedState(
+    INITIAL_SIZE,
+    parentOnContentSizeChange,
+  );
+  const contentSizeRef = useRef(contentSize);
+  contentSizeRef.current = contentSize;
+
   const { 0: nodeRef, 1: setNode } = useReferencedState<HTMLElement | null>(
     null,
   );
@@ -291,10 +306,8 @@ export const Scroll = forwardRef(function Scroll(
     });
   }, [autoScroll, nodeRef.current]);
 
-  const currentSize = sizeRef.current;
-  const currentContentSize = contentSizeRef.current;
-  const hasVerticalScroll = currentContentSize.height > currentSize.height;
-  const hasHorizontalScroll = currentContentSize.width > currentSize.width;
+  const hasVerticalScroll = contentSize.height > size.height;
+  const hasHorizontalScroll = contentSize.width > size.width;
 
   return (
     <Flex
@@ -325,8 +338,8 @@ export const Scroll = forwardRef(function Scroll(
         {ScrollBar && hasVerticalScroll && (
           <ScrollBar
             {...property("top")}
-            contentSize={currentContentSize.height}
-            size={currentSize.height}
+            contentSize={contentSize.height}
+            size={size.height}
           />
         )}
       </Flex>
@@ -334,8 +347,8 @@ export const Scroll = forwardRef(function Scroll(
         <Flex direction="horizontal" height="hug" width="fill">
           <ScrollBar
             {...property("left")}
-            contentSize={currentContentSize.width}
-            size={currentSize.width}
+            contentSize={contentSize.width}
+            size={size.width}
           />
           {hasVerticalScroll && (
             <Flex class="Scroll-corner" height="fill">
