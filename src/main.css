@@ -37,7 +37,7 @@ body,
 }
 
 .Scroller {
-  background-color: gold;
+  background-color: rgba(30, 30, 30, 0.25);
   color: black;
   z-index: 5;
   position: absolute;
