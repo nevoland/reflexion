@@ -1,9 +1,15 @@
 /* eslint-disable no-irregular-whitespace */
 import { clsx } from "clsx";
 import type { ComponentChildren } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { useResizeEffect } from "realue";
 
-import { Flex, Scroll, Scroller } from "../lib/main.js";
+import {
+  Flex,
+  Scroll,
+  type ScrollContentProps,
+  Scroller,
+} from "../lib/main.js";
 
 function TableHeaderList({ value }: { value: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -127,26 +133,45 @@ function CustomScrollContent({
   top,
   left,
   children,
-}: {
-  top: number;
-  left: number;
-  children: ComponentChildren;
-}) {
+  contentHeight,
+  contentWidth,
+  onChangeContentSize,
+}: ScrollContentProps) {
+  const { 0: node, 1: setNode } = useState<HTMLElement | null>(null);
+
+  const onContentResize = useCallback(() => {
+    const element = node?.firstElementChild;
+    if (element == null) {
+      return;
+    }
+    onChangeContentSize({
+      height: contentHeight ?? element.clientHeight,
+      width: contentWidth ?? element.clientWidth,
+    });
+  }, [node, contentHeight, contentWidth]);
+
+  useResizeEffect(node?.firstElementChild, onContentResize);
+
   return (
     <Flex
-      class="Scroll-content"
+      class="Scroll-content bg-teal-500"
       height="fill"
       maxHeight="fill"
       overflow="hidden"
+      ref={setNode}
       width="fill"
     >
-      {left} / {top}
-      <br />
-      <div class="relative">
-        <div class="absolute" style={{ top, left }}>
-          {children}
+      <Flex width={400}>
+        {left} / {top}
+        <br />
+        Out of {contentWidth} / {contentHeight}
+        <br />
+        <div class="relative">
+          <div class="absolute" style={{ top, left }}>
+            {children}
+          </div>
         </div>
-      </div>
+      </Flex>
     </Flex>
   );
 }
@@ -241,7 +266,7 @@ export function App() {
           Scroller={Scroller}
           class="b"
           contentHeight={1_000_000_000_000}
-          contentWidth={4000}
+          // contentWidth={4000}
           height="fill"
           noShrink
           onChange={setScroll}
