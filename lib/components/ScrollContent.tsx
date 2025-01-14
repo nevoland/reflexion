@@ -1,12 +1,6 @@
-import { useRefList, useResizeEffect } from "realue";
+import { useResizeEffect } from "realue";
 
-import type { Ref } from "../dependencies/types";
-import {
-  forwardRef,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from "../dependencies.js";
+import { useCallback, useLayoutEffect, useState } from "../dependencies.js";
 import type { ScrollContentProps } from "../types/ScrollContentProps.js";
 
 import { Flex } from "./Flex.js";
