@@ -231,18 +231,15 @@ export const Scroll = forwardRef(function Scroll(
     if (contentSize !== contentSizeRef.current) {
       setContentSize(contentSize);
     }
-  }, [contentHeight, contentWidth, Scroller]);
+  }, [contentHeight, contentWidth]);
 
   const onWheel = useCallback<
     (event: JSX.TargetedWheelEvent<HTMLDivElement>) => void
-  >(
-    (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      scrollBy(event.deltaX, event.deltaY);
-    },
-    [Scroller],
-  );
+  >((event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    scrollBy(event.deltaX, event.deltaY);
+  }, EMPTY_ARRAY);
 
   const onResize = useCallback(() => {
     const node = nodeRef.current?.firstElementChild;
