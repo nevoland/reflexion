@@ -56,8 +56,6 @@ export type ScrollProps = {
    */
   offsetTop?: number;
   class?: string;
-  onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
-  onScrollEnd?: () => void;
   children: ComponentChildren;
   corner?: ComponentChild;
   /**
@@ -100,6 +98,10 @@ const INITIAL_VALUE = { left: 0, top: 0 };
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
+const RESIZE_OPTIONS = {
+  box: "border-box",
+} as const;
+
 export const Scroll = forwardRef(function Scroll(
   {
     value = INITIAL_VALUE,
@@ -107,7 +109,6 @@ export const Scroll = forwardRef(function Scroll(
     onChange,
     class: className,
     overflow,
-    onScrollEnd,
     width = "fill",
     height = "fill",
     onSizeChange: parentOnSizeChange,
@@ -258,7 +259,7 @@ export const Scroll = forwardRef(function Scroll(
     setSize({ height, width });
   }, [Scroller]);
 
-  useResizeEffect(nodeRef.current?.firstElementChild, onResize);
+  useResizeEffect(nodeRef.current?.firstElementChild, onResize, RESIZE_OPTIONS);
 
   const [autoScroll, onChangeAutoScroll] = useState<ScrollState>();
   const onAutoScrollStart = useCallback(
