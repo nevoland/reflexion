@@ -30,6 +30,7 @@ import {
 import type {
   FlexProps,
   Location,
+  ScrollBarProps,
   ScrollContentProps,
   ScrollState,
   ScrollerProps,
@@ -37,10 +38,7 @@ import type {
 } from "../types";
 
 import { Flex } from "./Flex.js";
-import {
-  ScrollBar as ScrollBarDefault,
-  type ScrollBarProps,
-} from "./ScrollBar.jsx";
+import { ScrollBar as ScrollBarDefault } from "./ScrollBar.jsx";
 import { ScrollContent as ScrollContentDefault } from "./ScrollContent.jsx";
 
 export type ScrollProps = {
