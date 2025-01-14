@@ -1,29 +1,12 @@
 import { clamp } from "@nevoland/clamp";
 import { getGlobal } from "@nevoland/get-global";
 import { on, once } from "futurise";
-import { type NevoProps } from "realue";
 
 import type { JSX } from "../dependencies/types";
 import { clsx, useCallback, useRef, useState } from "../dependencies.js";
-import type { ScrollState } from "../types";
+import type { ScrollBarProps } from "../types";
 
 import { Flex } from "./Flex.js";
-
-export type ScrollBarProps = NevoProps<number> & {
-  name: keyof ScrollState;
-  /**
-   * Size of the scrollbar track.
-   */
-  size: number | undefined;
-  /**
-   * Size of the content.
-   */
-  contentSize: number | undefined;
-  /**
-   * Minimum length of the scrollbar knob.
-   */
-  minLength?: number;
-};
 
 export function ScrollBar({
   value = 0,
