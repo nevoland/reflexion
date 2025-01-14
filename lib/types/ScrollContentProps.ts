@@ -9,4 +9,5 @@ export type ScrollContentProps = {
   contentWidth?: number;
   onChangeContentSize: Dispatch<{ height: number; width: number }>;
   children: ComponentChildren;
+  class?: string;
 };

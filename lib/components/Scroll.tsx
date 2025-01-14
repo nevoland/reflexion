@@ -71,6 +71,10 @@ export type ScrollProps = {
    */
   ScrollContent?: Component<ScrollContentProps>;
   /**
+   * Optional class name to provide to the `ScrollContent` component.
+   */
+  contentClass?: string;
+  /**
    * Component to use to render scroll bars. Can be set to `false` to disable scroll bars.
    */
   ScrollBar?: Component<ScrollBarProps> | false;
@@ -115,6 +119,7 @@ export const Scroll = forwardRef(function Scroll(
     offsetLeft = 0,
     offsetTop = 0,
     corner,
+    contentClass,
     Scroller,
     ScrollContent = ScrollContentDefault,
     ScrollBar = ScrollBarDefault,
@@ -311,6 +316,7 @@ export const Scroll = forwardRef(function Scroll(
         width="fill"
       >
         <ScrollContent
+          class={contentClass}
           contentHeight={contentHeight}
           contentWidth={contentWidth}
           left={valueRef.current.left}
