@@ -1,7 +1,7 @@
 {
   "name": "reflexion",
   "private": false,
-  "version": "2.3.0-alpha.5",
+  "version": "2.3.0-alpha.6",
   "type": "module",
   "main": "./dist/main.js",
   "exports": {
