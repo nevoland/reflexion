@@ -64,10 +64,6 @@ export type ScrollProps = {
    * Indicates which axis should be synchronized when the `value` changes.
    */
   sync?: Direction | "both";
-  /**
-   * Width and height of the content. Omitted dimensions are measured automatically from the content.
-   */
-  size?: Size;
   class?: string;
   onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
   onScrollEnd?: () => void;
@@ -205,7 +201,6 @@ export const Scroll = forwardRef(function Scroll(
     if (Scroller == null) {
       return;
     }
-
     const { top, left } = valueRef.current;
     const { height, width } = sizeRef.current;
     const { height: contentHeight, width: contentWidth } =
