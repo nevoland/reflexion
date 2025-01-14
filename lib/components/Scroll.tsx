@@ -50,8 +50,8 @@ export type ScrollProps = {
   value?: ScrollState;
   name?: Name;
   onChange?: NoInfer<ValueMutator<ScrollState>>;
-  onSizeChange: Dispatch<Size>;
-  onContentSizeChange: Dispatch<Size>;
+  onSizeChange?: Dispatch<Size>;
+  onContentSizeChange?: Dispatch<Size>;
   /**
    * Offset left to add to the `ScrollContent` component (provided directly to it).
    */
