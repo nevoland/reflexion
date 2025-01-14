@@ -60,10 +60,6 @@ export type ScrollProps = {
    * Offset top to add to the `ScrollContent` component (provided directly to it).
    */
   offsetTop?: number;
-  /**
-   * Indicates which axis should be synchronized when the `value` changes.
-   */
-  sync?: Direction | "both";
   class?: string;
   onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
   onScrollEnd?: () => void;
@@ -110,7 +106,6 @@ export const Scroll = forwardRef(function Scroll(
     value = INITIAL_VALUE,
     name = "",
     onChange,
-    sync,
     class: className,
     overflow,
     onScrollEnd,
