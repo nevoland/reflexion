@@ -1,30 +1,23 @@
 import { useRefList, useResizeEffect } from "realue";
 
-import type { ComponentChildren, Dispatch, Ref } from "../dependencies/types";
+import type { Ref } from "../dependencies/types";
 import {
   forwardRef,
   useCallback,
   useLayoutEffect,
   useState,
 } from "../dependencies.js";
+import type { ScrollContentProps } from "../types/ScrollContentProps.js";
 
 import { Flex } from "./Flex.js";
 
-export type ScrollContentProps = {
-  top: number;
-  left: number;
-  offsetTop: number;
-  offsetLeft: number;
-  onChangeContentSize: Dispatch<{ height: number; width: number }>;
-  children: ComponentChildren;
-};
-
-export const ScrollContent = forwardRef(function ScrollContent(
-  { top, left, onChangeContentSize, children }: ScrollContentProps,
-  parentRef: Ref<HTMLDivElement>,
-) {
-  const { 0: node, 1: setNode } = useState<HTMLDivElement | null>(null);
-  const ref = useRefList(parentRef, setNode);
+export function ScrollContent({
+  top,
+  left,
+  onChangeContentSize,
+  children,
+}: ScrollContentProps) {
+  const { 0: node, 1: setNode } = useState<HTMLElement | null>(null);
 
   useLayoutEffect(() => {
     if (node == null) {
@@ -52,10 +45,10 @@ export const ScrollContent = forwardRef(function ScrollContent(
       height="fill"
       maxHeight="fill"
       overflow="hidden"
-      ref={ref}
+      ref={setNode}
       width="fill"
     >
       {children}
     </Flex>
   );
-});
+}

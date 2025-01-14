@@ -30,6 +30,7 @@ import {
 import type {
   FlexProps,
   Location,
+  ScrollContentProps,
   ScrollState,
   ScrollerProps,
   Size,
@@ -40,10 +41,7 @@ import {
   ScrollBar as ScrollBarDefault,
   type ScrollBarProps,
 } from "./ScrollBar.jsx";
-import {
-  ScrollContent as ScrollContentDefault,
-  type ScrollContentProps,
-} from "./ScrollContent.jsx";
+import { ScrollContent as ScrollContentDefault } from "./ScrollContent.jsx";
 
 export type ScrollProps = {
   value?: ScrollState;
@@ -316,6 +314,8 @@ export const Scroll = forwardRef(function Scroll(
         width="fill"
       >
         <ScrollContent
+          contentHeight={contentHeight}
+          contentWidth={contentWidth}
           left={valueRef.current.left}
           offsetLeft={offsetLeft}
           offsetTop={offsetTop}
