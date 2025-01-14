@@ -28,7 +28,6 @@ import {
   useState,
 } from "../dependencies.js";
 import type {
-  Direction,
   FlexProps,
   Location,
   ScrollState,
