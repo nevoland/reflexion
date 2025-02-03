@@ -1,5 +1,4 @@
 import type { JSX, Ref } from "preact";
-import type { ElementType } from "preact/compat";
 
 export type Direction = "vertical" | "horizontal";
 

@@ -9,6 +9,7 @@ reflexion
 - [Alignment](README.md#alignment)
 - [Dimension](README.md#dimension)
 - [Direction](README.md#direction)
+- [ElementFromTag](README.md#elementfromtag)
 - [FlexProps](README.md#flexprops)
 - [FlexableComponent](README.md#flexablecomponent)
 - [Gap](README.md#gap)
@@ -30,7 +31,7 @@ reflexion
 
 #### Defined in
 
-[types.ts:5](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L5)
+[types.ts:5](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L5)
 
 ___
 
@@ -40,7 +41,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L16)
+[types.ts:16](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L16)
 
 ___
 
@@ -50,25 +51,41 @@ ___
 
 #### Defined in
 
-[types.ts:3](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L3)
+[types.ts:3](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L3)
 
 ___
 
-### FlexProps
+### ElementFromTag
 
-Ƭ **FlexProps**\<`E`\>: `Object`
+Ƭ **ElementFromTag**\<`C`\>: `C` extends keyof `HTMLElementTagNameMap` ? `HTMLElementTagNameMap`[`C`] : `never`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `E` | extends `HTMLElement` = `HTMLDivElement` |
+| `C` | extends [`FlexableComponent`](README.md#flexablecomponent) |
+
+#### Defined in
+
+[types.ts:22](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L22)
+
+___
+
+### FlexProps
+
+Ƭ **FlexProps**\<`C`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `C` | extends [`FlexableComponent`](README.md#flexablecomponent) |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `Component?` | `JSX.ElementType` | Container component to use to render. **`Default`** ```ts "div" ``` |
+| `Component` | `C` | Container component to use to render. **`Default`** ```ts "div" ``` |
 | `align?` | [`Alignment`](README.md#alignment) | Element container setting that sets the alignment of its children. If set, the element is considered to be a container. |
 | `class?` | `string` | Element classes. |
 | `className?` | `string` | - |
@@ -81,7 +98,7 @@ ___
 | `minWidth?` | [`Dimension`](README.md#dimension) | Element minimum width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
 | `noShrink?` | ``true`` | Explicitly prevent the element from shrinking if set to `true`. |
 | `overflow?` | ``"hidden"`` \| ``"auto"`` | Element overflow setting. Controlled by the `scroll` property. |
-| `ref?` | `Ref`\<`E`\> | - |
+| `ref?` | `Ref`\<[`ElementFromTag`](README.md#elementfromtag)\<`C`\>\> | - |
 | `scroll?` | `boolean` | Element container setting that enables scrolling if its content goes out of bounds. |
 | `style?` | `JSX.AllCSSProperties` | Element styles. These override any style abstracted by the other properties. |
 | `width?` | [`Dimension`](README.md#dimension) | Element width. If set to `"fill"`, the element horizontally fills the parent container. If set to `"hug"`, it hugs the content of its children. |
@@ -89,7 +106,7 @@ ___
 
 #### Defined in
 
-[types.ts:22](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L22)
+[types.ts:25](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L25)
 
 ___
 
@@ -99,7 +116,7 @@ ___
 
 #### Defined in
 
-[types.ts:20](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L20)
+[types.ts:20](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L20)
 
 ___
 
@@ -109,13 +126,13 @@ ___
 
 #### Defined in
 
-[types.ts:18](https://github.com/nevoland/reflexion/blob/51d7f38/lib/types.ts#L18)
+[types.ts:18](https://github.com/nevoland/reflexion/blob/bd0d280/lib/types.ts#L18)
 
 ## Functions
 
 ### Flex
 
-▸ **Flex**\<`E`\>(`«destructured»`, `ref?`): `Element`
+▸ **Flex**\<`C`\>(`props`, `ref?`): `JSX.Element`
 
 Creates a `div` element with abstracted CSS Flexbox properties.
 
@@ -123,22 +140,41 @@ Creates a `div` element with abstracted CSS Flexbox properties.
 
 | Name | Type |
 | :------ | :------ |
-| `E` | extends `HTMLElement` = `HTMLDivElement` |
+| `C` | extends [`FlexableComponent`](README.md#flexablecomponent) |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `«destructured»` | [`FlexProps`](README.md#flexprops)\<`E`\> & `Omit`\<`HTMLAttributes`\<`E`\>, keyof [`FlexProps`](README.md#flexprops)\> |
-| `ref?` | `Ref`\<`E`\> |
+| `props` | [`FlexProps`](README.md#flexprops)\<`C`\> & `Omit`\<`Attributes`\<`C`\>, keyof [`FlexProps`](README.md#flexprops)\<`any`\>\> |
+| `ref?` | `Ref`\<[`ElementFromTag`](README.md#elementfromtag)\<`C`\>\> |
 
 #### Returns
 
-`Element`
+`JSX.Element`
 
 #### Defined in
 
-[components/Flex.tsx:12](https://github.com/nevoland/reflexion/blob/51d7f38/lib/components/Flex.tsx#L12)
+[components/Flex.tsx:20](https://github.com/nevoland/reflexion/blob/bd0d280/lib/components/Flex.tsx#L20)
+
+▸ **Flex**(`props`, `ref?`): `JSX.Element`
+
+Creates a `div` element with abstracted CSS Flexbox properties.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props` | `Omit`\<[`FlexProps`](README.md#flexprops)\<``"div"``\>, ``"Component"``\> & `Omit`\<`HTMLAttributes`\<`HTMLDivElement`\>, keyof [`FlexProps`](README.md#flexprops)\<`any`\>\> |
+| `ref?` | `Ref`\<`HTMLDivElement`\> |
+
+#### Returns
+
+`JSX.Element`
+
+#### Defined in
+
+[components/Flex.tsx:24](https://github.com/nevoland/reflexion/blob/bd0d280/lib/components/Flex.tsx#L24)
 
 ___
 
@@ -159,7 +195,7 @@ ___
 
 #### Defined in
 
-[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/51d7f38/lib/tools/adjustGap.ts#L3)
+[tools/adjustGap.ts:3](https://github.com/nevoland/reflexion/blob/bd0d280/lib/tools/adjustGap.ts#L3)
 
 ___
 
@@ -185,7 +221,7 @@ ___
 
 #### Defined in
 
-[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/51d7f38/lib/tools/alignFlex.ts#L3)
+[tools/alignFlex.ts:3](https://github.com/nevoland/reflexion/blob/bd0d280/lib/tools/alignFlex.ts#L3)
 
 ___
 
@@ -216,7 +252,7 @@ ___
 
 #### Defined in
 
-[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/51d7f38/lib/tools/flex.ts#L9)
+[tools/flex.ts:9](https://github.com/nevoland/reflexion/blob/bd0d280/lib/tools/flex.ts#L9)
 
 ___
 
@@ -236,7 +272,7 @@ ___
 
 #### Defined in
 
-[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/51d7f38/lib/tools/flexDirection.ts#L3)
+[tools/flexDirection.ts:3](https://github.com/nevoland/reflexion/blob/bd0d280/lib/tools/flexDirection.ts#L3)
 
 ___
 
@@ -264,4 +300,4 @@ ___
 
 #### Defined in
 
-[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/51d7f38/lib/tools/merge.ts#L1)
+[tools/merge.ts:1](https://github.com/nevoland/reflexion/blob/bd0d280/lib/tools/merge.ts#L1)
