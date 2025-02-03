@@ -16,6 +16,8 @@ const GLOBAL_NAME_LIST = [
   "console",
   "HTMLElement",
   "HTMLDivElement",
+  "HTMLElementTagNameMap",
+  "SVGElementTagNameMap",
 ];
 
 /** @type { import("eslint").Linter.FlatConfig[] } */

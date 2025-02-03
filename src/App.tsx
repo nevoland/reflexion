@@ -13,6 +13,7 @@ function TableHeaderList({ value }: { value: number }) {
   }, [value]);
   return (
     <Flex
+      Component="div"
       class="d"
       direction="horizontal"
       overflow="hidden"
@@ -132,7 +133,7 @@ export function App() {
         width="fill"
       >
         <Flex align="center" direction="vertical">
-          <Flex>Title</Flex>
+          <Flex Component="span">Title</Flex>
           <Flex>Sub-title</Flex>
         </Flex>
       </Flex>

@@ -1,4 +1,5 @@
 import type { JSX, Ref } from "preact";
+import type { ElementType } from "preact/compat";
 
 export type Direction = "vertical" | "horizontal";
 
@@ -19,13 +20,16 @@ export type Gap = "auto" | number | string;
 
 export type FlexableComponent = keyof JSX.IntrinsicElements & string;
 
-export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
+export type ElementFromTag<C extends FlexableComponent> =
+  C extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[C] : never;
+
+export type FlexProps<C extends FlexableComponent> = {
   /**
    * Container component to use to render.
    *
    * @default "div"
    */
-  Component?: JSX.ElementType;
+  Component: C;
   /**
    * Element classes.
    */
@@ -93,5 +97,5 @@ export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
    * Explicitly prevent the element from shrinking if set to `true`.
    */
   noShrink?: true | undefined;
-  ref?: Ref<E>;
+  ref?: Ref<ElementFromTag<C>>;
 };
