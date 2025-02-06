@@ -17,13 +17,18 @@ export type Dimension = "hug" | "fill" | string | number;
 
 export type Gap = "auto" | number | string;
 
-export type FlexableComponent = keyof JSX.IntrinsicElements & string;
+export type IntrinsicHTMLElement = Pick<
+  JSX.IntrinsicElements,
+  keyof HTMLElementTagNameMap
+>;
 
-export type ElementAttributes<C extends FlexableComponent> =
-  JSX.IntrinsicElements[C];
+export type FlexableComponent = keyof IntrinsicHTMLElement;
+
+export type AttributesFromTag<C extends FlexableComponent> =
+  IntrinsicHTMLElement[C];
 
 export type ElementFromTag<C extends FlexableComponent> =
-  C extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[C] : never;
+  HTMLElementTagNameMap[C];
 
 export type FlexProps<C extends FlexableComponent> = {
   /**
