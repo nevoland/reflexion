@@ -19,6 +19,9 @@ export type Gap = "auto" | number | string;
 
 export type FlexableComponent = keyof JSX.IntrinsicElements & string;
 
+export type ElementAttributes<C extends FlexableComponent> =
+  JSX.IntrinsicElements[C];
+
 export type ElementFromTag<C extends FlexableComponent> =
   C extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[C] : never;
 
