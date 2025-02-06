@@ -11,22 +11,18 @@ import { forwardRef } from "preact/compat";
 
 import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
-import type {
-  AttributesFromTag,
-  ElementFromTag,
-  FlexProps,
-  FlexableComponent,
-} from "../types";
+import type { ElementFromTag, FlexProps, FlexableComponent } from "../types";
 
 const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
 function FlexForwarded<C extends FlexableComponent>(
-  props: FlexProps<C> & Omit<AttributesFromTag<C>, keyof FlexProps<C>>,
+  props: FlexProps<C> &
+    Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>,
   ref?: Ref<ElementFromTag<C>>,
 ): JSX.Element;
 function FlexForwarded(
   props: Omit<FlexProps<"div">, "Component"> &
-    Omit<AttributesFromTag<"div">, keyof FlexProps<"div">>,
+    Omit<JSX.AllHTMLAttributes<ElementFromTag<"div">>, keyof FlexProps<"div">>,
   ref?: Ref<ElementFromTag<"div">>,
 ): JSX.Element;
 function FlexForwarded<C extends FlexableComponent>(
@@ -61,9 +57,10 @@ function FlexForwarded<C extends FlexableComponent>(
     noShrink,
     ...props
   }:
-    | (FlexProps<C> & Omit<AttributesFromTag<C>, keyof FlexProps<C>>)
+    | (FlexProps<C> &
+        Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
     | (Omit<FlexProps<"div">, "Component"> & { Component?: "div" } & Omit<
-          AttributesFromTag<"div">,
+          JSX.AllHTMLAttributes<ElementFromTag<"div">>,
           keyof FlexProps<"div">
         >),
   ref?: Ref<ElementFromTag<C>>,
