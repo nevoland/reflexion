@@ -15,17 +15,17 @@ import type { ElementFromTag, FlexProps, FlexableComponent } from "../types";
 
 const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
-function FlexForwarded<C extends FlexableComponent>(
+function Flex<C extends FlexableComponent>(
   props: FlexProps<C> &
     Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>,
   ref?: Ref<ElementFromTag<C>>,
 ): JSX.Element;
-function FlexForwarded(
+function Flex(
   props: Omit<FlexProps<"div">, "Component"> &
-    Omit<JSX.AllHTMLAttributes<ElementFromTag<"div">>, keyof FlexProps<"div">>,
-  ref?: Ref<ElementFromTag<"div">>,
+    Omit<JSX.AllHTMLAttributes<HTMLDivElement>, keyof FlexProps<"div">>,
+  ref?: Ref<HTMLDivElement>,
 ): JSX.Element;
-function FlexForwarded<C extends FlexableComponent>(
+function Flex<C extends FlexableComponent>(
   {
     Component = "div",
     class: realClassName,
@@ -59,7 +59,8 @@ function FlexForwarded<C extends FlexableComponent>(
   }:
     | (FlexProps<C> &
         Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
-    | (Omit<FlexProps<"div">, "Component"> & { Component?: "div" } & Omit<
+    | ({ Component?: "div" } & Omit<FlexProps<"div">, "Component"> &
+        Omit<
           JSX.AllHTMLAttributes<ElementFromTag<"div">>,
           keyof FlexProps<"div">
         >),
@@ -105,6 +106,8 @@ function FlexForwarded<C extends FlexableComponent>(
 }
 
 /**
- * Creates a `div` element with abstracted CSS Flexbox properties.
+ * Creates a an intrinsic element with abstracted CSS Flexbox properties.
  */
-export const Flex = forwardRef(FlexForwarded) as typeof FlexForwarded;
+const FlexExported = forwardRef(Flex) as typeof Flex;
+
+export { FlexExported as Flex };

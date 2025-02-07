@@ -21,6 +21,7 @@ function TableHeaderList({ value }: { value: number }) {
       width="fill"
     >
       <Flex class="TableHeaderList" direction="horizontal">
+        <Flex onClick={(event) => event.preventDefault()} />
         <Flex align="left" height={38} width={200}>
           Header A
         </Flex>
