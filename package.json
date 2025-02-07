@@ -34,6 +34,7 @@
   "scripts": {
     "dev": "vite",
     "dev:test": "vitest --update",
+    "dev:build": "tsc --watch --project tsconfig.package.json",
     "test": "npm run lint && npm run format && vitest run",
     "build": "rm -rf dist; tsc --project tsconfig.package.json && cp lib/main.css dist/",
     "build:doc": "typedoc --tsconfig tsconfig.package.json",
