@@ -36,7 +36,7 @@ export type FlexProps<C extends FlexableComponent> = {
    *
    * @default "div"
    */
-  Component: C;
+  Component?: C;
   /**
    * Element classes.
    */

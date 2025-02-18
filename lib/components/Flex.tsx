@@ -16,12 +16,14 @@ import type { ElementFromTag, FlexProps, FlexableComponent } from "../types";
 const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent);
 
 function Flex<C extends FlexableComponent>(
-  props: FlexProps<C> &
-    Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>,
+  props: FlexProps<C> & { Component: C } & Omit<
+      JSX.AllHTMLAttributes<ElementFromTag<C>>,
+      keyof FlexProps<C>
+    >,
   ref?: Ref<ElementFromTag<C>>,
 ): JSX.Element;
 function Flex(
-  props: Omit<FlexProps<"div">, "Component"> &
+  props: FlexProps<"div"> &
     Omit<JSX.AllHTMLAttributes<HTMLDivElement>, keyof FlexProps<"div">>,
   ref?: Ref<HTMLDivElement>,
 ): JSX.Element;
@@ -59,7 +61,7 @@ function Flex<C extends FlexableComponent>(
   }:
     | (FlexProps<C> &
         Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
-    | ({ Component?: "div" } & Omit<FlexProps<"div">, "Component"> &
+    | (FlexProps<"div"> &
         Omit<
           JSX.AllHTMLAttributes<ElementFromTag<"div">>,
           keyof FlexProps<"div">
