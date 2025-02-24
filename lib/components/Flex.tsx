@@ -1,15 +1,27 @@
 import { getGlobal } from "@nevoland/get-global";
 import { clsx } from "clsx";
 
-import type { JSX, Ref } from "../dependencies/types";
+import type { JSX, Ref, VNode, createElement as h, } from "../dependencies/types";
 import { forwardRef, toChildArray } from "../dependencies.js";
 import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
-import type { FlexProps } from "../types";
+import type { ElementFromTag, FlexProps, FlexableComponent } from "../types";
 
 const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent ?? "");
 
-function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
+function Flex<C extends FlexableComponent>(
+  props: FlexProps<C> & { Component: C } & Omit<
+      JSX.AllHTMLAttributes<ElementFromTag<C>>,
+      keyof FlexProps<C>
+    >,
+  ref?: Ref<ElementFromTag<C>>,
+): JSX.Element;
+function Flex(
+  props: FlexProps<"div"> &
+    Omit<JSX.AllHTMLAttributes<HTMLDivElement>, keyof FlexProps<"div">>,
+  ref?: Ref<HTMLDivElement>,
+): JSX.Element;
+function Flex<C extends FlexableComponent>(
   {
     Component = "div",
     class: realClassName,
@@ -20,17 +32,17 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     align,
     wrap = false,
     scroll = false,
-    overflow = scroll
+    overflow = (scroll
       ? "auto"
       : IS_FIREFOX &&
-          (direction !== undefined || align !== undefined) &&
-          toChildArray(children).some(
-            (child) =>
-              (child as { props?: { scroll?: boolean } }).props?.scroll ===
-              true,
-          )
-        ? "hidden"
-        : undefined,
+        (direction !== undefined || align !== undefined) &&
+        toChildArray(children).some(
+          (child) =>
+            (child as VNode)?.type === Flex &&
+            (child as { props?: { scroll?: boolean } }).props?.scroll === true,
+        )
+      ? "hidden"
+      : undefined) as FlexProps<any>["overflow"],
     gap,
     width,
     minWidth,
@@ -40,25 +52,33 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
     maxHeight,
     noShrink,
     ...props
-  }: FlexProps<E> & Omit<JSX.HTMLAttributes<E>, keyof FlexProps>,
-  ref?: Ref<E>,
+  }:
+    | (FlexProps<C> &
+        Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
+    | (FlexProps<"div"> &
+        Omit<
+          JSX.AllHTMLAttributes<ElementFromTag<"div">>,
+          keyof FlexProps<"div">
+        >),
+  ref?: Ref<ElementFromTag<C>>,
 ) {
   const currentDirection =
     direction ?? (align === undefined ? undefined : "horizontal");
   const currentAlign =
     align ?? (direction !== undefined ? "top-left" : undefined);
-  return (
-    <Component
-      class={clsx(
+  return h(
+    Component,
+    {
+      class: clsx(
         "Flex",
         width === "fill" && "Flex-width-fill",
         height === "fill" && "Flex-height-fill",
         currentDirection && `Flex-${currentDirection}`,
         scroll && "Flex-scroll",
         className,
-      )}
-      ref={ref}
-      style={merge(
+      ),
+      ref,
+      style: merge(
         flex(
           currentDirection,
           wrap,
@@ -74,15 +94,16 @@ function FlexForwarded<E extends HTMLElement = HTMLDivElement>(
           noShrink,
         ),
         style,
-      )}
-      {...props}
-    >
-      {children}
-    </Component>
+      ),
+      ...props,
+    } as any,
+    children,
   );
 }
 
 /**
- * Creates a `div` element with abstracted CSS Flexbox properties.
+ * Creates a an intrinsic element with abstracted CSS Flexbox properties.
  */
-export const Flex = forwardRef(FlexForwarded) as typeof FlexForwarded;
+const FlexExported = forwardRef(Flex) as typeof Flex;
+
+export { FlexExported as Flex };

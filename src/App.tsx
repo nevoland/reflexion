@@ -21,6 +21,7 @@ function TableHeaderList({ value }: { value: number }) {
   }, [value]);
   return (
     <Flex
+      Component="div"
       class="d"
       direction="horizontal"
       overflow="hidden"
@@ -28,6 +29,11 @@ function TableHeaderList({ value }: { value: number }) {
       width="fill"
     >
       <Flex class="TableHeaderList" direction="horizontal">
+        <Flex
+          onClick={(event) => {
+            event.preventDefault();
+          }}
+        />
         <Flex align="left" height={38} width={200}>
           Header A
         </Flex>
@@ -189,7 +195,7 @@ export function App() {
         width="fill"
       >
         <Flex align="center" direction="vertical">
-          <Flex>Title</Flex>
+          <Flex Component="span">Title</Flex>
           <Flex>Sub-title</Flex>
         </Flex>
       </Flex>

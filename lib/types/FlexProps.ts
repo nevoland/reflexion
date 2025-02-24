@@ -2,16 +2,16 @@ import type { JSX, Ref } from "../dependencies/types";
 
 import type { Dimension } from "./Dimension";
 import type { Direction } from "./Direction";
+import type { FlexableComponent } from "./FlexableComponent";
 import type { Gap } from "./Gap";
-import type { Location } from "./Location";
 
-export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
+export type FlexProps<C extends FlexableComponent> = {
   /**
    * Container component to use to render.
    *
    * @default "div"
    */
-  Component?: JSX.ElementType;
+  Component?: C;
   /**
    * Element classes.
    */
@@ -62,7 +62,7 @@ export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
   /**
    * Element container setting that sets the alignment of its children. If set, the element is considered to be a container.
    */
-  align?: Location;
+  align?: Alignment;
   /**
    * Element container setting that set the gap betwen its children. If set to `"auto"`, the gap is evenly distributed between the children.
    */
@@ -79,5 +79,5 @@ export type FlexProps<E extends HTMLElement = HTMLDivElement> = {
    * Explicitly prevent the element from shrinking if set to `true`.
    */
   noShrink?: true | undefined;
-  ref?: Ref<E>;
+  ref?: Ref<ElementFromTag<C>>;
 };

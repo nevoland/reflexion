@@ -14,8 +14,9 @@ import type { ScrollContentProps } from "./ScrollContentProps";
 import type { ScrollState } from "./ScrollState";
 import type { ScrollerProps } from "./ScrollerProps";
 import type { Size } from "./Size";
+import type { FlexableComponent } from "./FlexableComponent";
 
-type ScrollBaseProps = {
+type ScrollBaseProps<C extends FlexableComponent> = {
   value?: ScrollState;
   name?: Name;
   onChange?: NoInfer<ValueMutator<ScrollState>>;
@@ -52,7 +53,7 @@ type ScrollBaseProps = {
   ScrollBar?: Component<ScrollBarProps> | false;
   contentHeight?: number;
   contentWidth?: number;
-} & FlexProps;
+} & FlexProps<C>;
 
-export type ScrollProps = ScrollBaseProps &
-  Omit<FlexProps, keyof ScrollBaseProps>;
+export type ScrollProps<C extends FlexableComponent> = ScrollBaseProps<C> &
+  Omit<FlexProps<C>, keyof ScrollBaseProps<C>>;

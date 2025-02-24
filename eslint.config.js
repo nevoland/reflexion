@@ -16,6 +16,8 @@ const GLOBAL_NAME_LIST = [
   "console",
   "MediaQueryListEvent",
   "HTMLDivElement",
+  "HTMLElementTagNameMap",
+  "SVGElementTagNameMap",
   "ScrollToOptions",
   "HTMLElement",
 ];
