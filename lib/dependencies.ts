@@ -1,4 +1,4 @@
-export { toChildArray, cloneElement } from "preact";
+export { toChildArray, createElement, cloneElement } from "preact";
 export {
   forwardRef,
   useCallback,

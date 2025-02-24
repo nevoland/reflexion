@@ -2,8 +2,10 @@ import type { JSX, Ref } from "../dependencies/types";
 
 import type { Dimension } from "./Dimension";
 import type { Direction } from "./Direction";
+import type { ElementFromTag } from "./ElementFromTag";
 import type { FlexableComponent } from "./FlexableComponent";
 import type { Gap } from "./Gap";
+import type { Location } from "./Location";
 
 export type FlexProps<C extends FlexableComponent> = {
   /**
@@ -62,7 +64,7 @@ export type FlexProps<C extends FlexableComponent> = {
   /**
    * Element container setting that sets the alignment of its children. If set, the element is considered to be a container.
    */
-  align?: Alignment;
+  align?: Location;
   /**
    * Element container setting that set the gap betwen its children. If set to `"auto"`, the gap is evenly distributed between the children.
    */

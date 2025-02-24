@@ -1,8 +1,12 @@
 import { getGlobal } from "@nevoland/get-global";
 import { clsx } from "clsx";
 
-import type { JSX, Ref, VNode, createElement as h, } from "../dependencies/types";
-import { forwardRef, toChildArray } from "../dependencies.js";
+import type { JSX, Ref, VNode } from "../dependencies/types";
+import {
+  forwardRef,
+  toChildArray,
+  createElement as h,
+} from "../dependencies.js";
 import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
 import type { ElementFromTag, FlexProps, FlexableComponent } from "../types";

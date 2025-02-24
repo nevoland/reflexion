@@ -76,7 +76,7 @@ export type ScrollProps = {
   ScrollBar?: Component<ScrollBarProps> | false;
   contentHeight?: number;
   contentWidth?: number;
-} & FlexProps;
+} & FlexProps<"div">;
 
 type ScrollDirection = {
   top: boolean;

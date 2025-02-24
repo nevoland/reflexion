@@ -6,6 +6,7 @@ export type {
   JSX,
   Ref,
   AnyComponent as Component,
+  VNode,
 } from "preact";
 
 export type { Dispatch, StateUpdater };
