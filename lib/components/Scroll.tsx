@@ -102,7 +102,7 @@ const RESIZE_OPTIONS = {
   box: "border-box",
 } as const;
 
-export const Scroll = forwardRef(function Scroll(
+function Scroll(
   {
     value = INITIAL_VALUE,
     name = "",
@@ -378,4 +378,8 @@ export const Scroll = forwardRef(function Scroll(
       )}
     </Flex>
   );
-});
+}
+
+const ScrollExported = forwardRef(Scroll) as typeof Scroll;
+
+export { ScrollExported as Scroll };

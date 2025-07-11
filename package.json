@@ -59,6 +59,7 @@
     "@preact/preset-vite": "^2.9.2",
     "@types/eslint": "^8.56.12",
     "@types/node": "^20.17.9",
+    "@types/react": "^19.0.10",
     "@typescript-eslint/parser": "^7.18.0",
     "autoprefixer": "^10.4.20",
     "cssnano": "^6.1.2",
@@ -90,5 +91,8 @@
     "futurise": "^1.9.0",
     "realue": "^5.0.0-alpha.22",
     "unchangeable": "^1.7.3"
+  },
+  "optionalDependencies": {
+    "react": "^19.0.0"
   }
 }

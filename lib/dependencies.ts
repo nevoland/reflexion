@@ -1,11 +1,3 @@
-export { toChildArray, createElement, cloneElement } from "preact";
-export {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useLayoutEffect,
-} from "preact/compat";
+export * from "./dependencies/react.ts";
+
 export { clsx } from "clsx";
