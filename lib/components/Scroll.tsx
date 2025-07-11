@@ -16,8 +16,8 @@ import type {
   ComponentChild,
   ComponentChildren,
   Dispatch,
-  JSX,
   Ref,
+  WheelEvent,
 } from "../dependencies/types";
 import {
   forwardRef,
@@ -102,7 +102,7 @@ const RESIZE_OPTIONS = {
   box: "border-box",
 } as const;
 
-export const Scroll = forwardRef(function Scroll(
+function Scroll(
   {
     value = INITIAL_VALUE,
     name = "",
@@ -237,13 +237,14 @@ export const Scroll = forwardRef(function Scroll(
     }
   }, [contentHeight, contentWidth]);
 
-  const onWheel = useCallback<
-    (event: JSX.TargetedWheelEvent<HTMLDivElement>) => void
-  >((event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    scrollBy(event.deltaX, event.deltaY);
-  }, EMPTY_ARRAY);
+  const onWheel = useCallback<(event: WheelEvent<HTMLDivElement>) => void>(
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      scrollBy(event.deltaX, event.deltaY);
+    },
+    EMPTY_ARRAY,
+  );
 
   const onResize = useCallback(() => {
     const node = nodeRef.current?.firstElementChild;
@@ -378,4 +379,8 @@ export const Scroll = forwardRef(function Scroll(
       )}
     </Flex>
   );
-});
+}
+
+const ScrollExported = forwardRef(Scroll) as typeof Scroll;
+
+export { ScrollExported as Scroll };

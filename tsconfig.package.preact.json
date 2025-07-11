@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/preact"
+  },
+  "extends": ["./tsconfig.package.base.json", "./tsconfig.preact.json"]
+}

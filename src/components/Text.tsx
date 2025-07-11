@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ComponentChildren } from "../../lib/dependencies/types";
 
 export type TextProps = {
   children: ComponentChildren;

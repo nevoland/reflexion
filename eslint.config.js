@@ -20,6 +20,9 @@ const GLOBAL_NAME_LIST = [
   "SVGElementTagNameMap",
   "ScrollToOptions",
   "HTMLElement",
+  "EventTarget",
+  "WheelEvent",
+  "UIEvent",
 ];
 
 /** @type { import("eslint").Linter.FlatConfig[] } */

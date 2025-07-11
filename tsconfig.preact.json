@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsxImportSource": "preact",
+    "paths": {
+      "@dependency/types": ["./lib/dependencies/types/preact.ts"]
+    }
+  }
+}

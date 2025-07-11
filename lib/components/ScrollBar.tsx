@@ -2,7 +2,7 @@ import { clamp } from "@nevoland/clamp";
 import { getGlobal } from "@nevoland/get-global";
 import { on, once } from "futurise";
 
-import type { JSX } from "../dependencies/types";
+import type { MouseEvent } from "../dependencies/types";
 import { clsx, useCallback, useRef, useState } from "../dependencies.js";
 import type { ScrollBarProps } from "../types";
 
@@ -33,7 +33,7 @@ export function ScrollBar({
   valueRef.current = value;
 
   const onMouseDownKnob = useCallback(
-    (event: JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    (event: MouseEvent<HTMLDivElement>) => {
       const locationOrigin = name === "top" ? event.clientY : event.clientX;
       const valueOrigin = valueRef.current;
       event.preventDefault();
@@ -71,7 +71,7 @@ export function ScrollBar({
   );
 
   const onMouseDownTrack = useCallback(
-    (event: JSX.TargetedMouseEvent<HTMLDivElement>) => {
+    (event: MouseEvent<HTMLDivElement>) => {
       const locationOrigin = name === "top" ? event.clientY : event.clientX;
       const trackOrigin =
         event.currentTarget.getBoundingClientRect()[name] + knobSize / 2;

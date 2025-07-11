@@ -1,4 +1,4 @@
-import type { JSX, Ref } from "../dependencies/types";
+import type { CSSProperties, Ref } from "../dependencies/types";
 
 import type { Dimension } from "./Dimension";
 import type { Direction } from "./Direction";
@@ -22,7 +22,7 @@ export type FlexProps<C extends FlexableComponent> = {
   /**
    * Element styles. These override any style abstracted by the other properties.
    */
-  style?: JSX.AllCSSProperties;
+  style?: CSSProperties;
   /**
    * Element width. If set to `"fill"`, the element horizontally fills the parent container.
    * If set to `"hug"`, it hugs the content of its children.

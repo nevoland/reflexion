@@ -1,6 +1,6 @@
-import type { JSX } from "../dependencies/types";
+import type { IntrinsicElements } from "../dependencies/types";
 
 export type IntrinsicHTMLElement = Pick<
-  JSX.IntrinsicElements,
+  IntrinsicElements,
   keyof HTMLElementTagNameMap
 >;

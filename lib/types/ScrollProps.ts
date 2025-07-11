@@ -5,16 +5,16 @@ import type {
   ComponentChild,
   ComponentChildren,
   Dispatch,
-  JSX,
+  TargetedUIEvent,
 } from "../dependencies/types";
 
 import type { FlexProps } from "./FlexProps";
+import type { FlexableComponent } from "./FlexableComponent";
 import type { ScrollBarProps } from "./ScrollBarProps";
 import type { ScrollContentProps } from "./ScrollContentProps";
 import type { ScrollState } from "./ScrollState";
 import type { ScrollerProps } from "./ScrollerProps";
 import type { Size } from "./Size";
-import type { FlexableComponent } from "./FlexableComponent";
 
 type ScrollBaseProps<C extends FlexableComponent> = {
   value?: ScrollState;
@@ -31,7 +31,7 @@ type ScrollBaseProps<C extends FlexableComponent> = {
    */
   offsetTop?: number;
   class?: string;
-  onScroll?: (event: JSX.TargetedUIEvent<HTMLDivElement>) => void;
+  onScroll?: (event: TargetedUIEvent<HTMLDivElement>) => void;
   onScrollEnd?: () => void;
   children: ComponentChildren;
   corner?: ComponentChild;

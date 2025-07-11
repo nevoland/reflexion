@@ -1,8 +1,12 @@
 import { resolve } from "path";
 
 import preact from "@preact/preset-vite";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import moduleList from "vite-plugin-module-list";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+const { TARGET = "preact" } = process.env;
 
 export default defineConfig({
   build: {
@@ -50,6 +54,9 @@ export default defineConfig({
       outputPath: resolve("src/tools.ts"),
       rootPath: resolve("src/tools"),
     }),
-    preact(),
+    tsconfigPaths({
+      projects: [`./tsconfig.${TARGET}.json`],
+    }),
+    TARGET === "preact" ? preact() : react(),
   ],
 });

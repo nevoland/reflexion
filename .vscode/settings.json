@@ -14,5 +14,6 @@
   },
   "vitest.commandLine": "npx vitest --update",
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsconfigPath": "tsconfig.preact.json",
 }

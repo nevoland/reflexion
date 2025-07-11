@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/react"
+  },
+  "extends": ["./tsconfig.package.base.json", "./tsconfig.react.json"]
+}

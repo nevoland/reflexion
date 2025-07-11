@@ -1,11 +1,11 @@
 import { getGlobal } from "@nevoland/get-global";
 import { clsx } from "clsx";
 
-import type { JSX, Ref, VNode } from "../dependencies/types";
+import type { Element, HTMLAttributes, Ref } from "../dependencies/types";
 import {
   forwardRef,
-  toChildArray,
   createElement as h,
+  toChildArray,
 } from "../dependencies.js";
 import { flex } from "../tools/flex.js";
 import { merge } from "../tools/merge.js";
@@ -15,16 +15,16 @@ const IS_FIREFOX = /Gecko\/\d/i.test(getGlobal().navigator?.userAgent ?? "");
 
 function Flex<C extends FlexableComponent>(
   props: FlexProps<C> & { Component: C } & Omit<
-      JSX.AllHTMLAttributes<ElementFromTag<C>>,
+      HTMLAttributes<ElementFromTag<C>>,
       keyof FlexProps<C>
     >,
   ref?: Ref<ElementFromTag<C>>,
-): JSX.Element;
+): Element;
 function Flex(
   props: FlexProps<"div"> &
-    Omit<JSX.AllHTMLAttributes<HTMLDivElement>, keyof FlexProps<"div">>,
+    Omit<HTMLAttributes<HTMLDivElement>, keyof FlexProps<"div">>,
   ref?: Ref<HTMLDivElement>,
-): JSX.Element;
+): Element;
 function Flex<C extends FlexableComponent>(
   {
     Component = "div",
@@ -39,14 +39,15 @@ function Flex<C extends FlexableComponent>(
     overflow = (scroll
       ? "auto"
       : IS_FIREFOX &&
-        (direction !== undefined || align !== undefined) &&
-        toChildArray(children).some(
-          (child) =>
-            (child as VNode)?.type === Flex &&
-            (child as { props?: { scroll?: boolean } }).props?.scroll === true,
-        )
-      ? "hidden"
-      : undefined) as FlexProps<any>["overflow"],
+          (direction !== undefined || align !== undefined) &&
+          toChildArray(children).some(
+            (child) =>
+              (child as Element)?.type === Flex &&
+              (child as { props?: { scroll?: boolean } }).props?.scroll ===
+                true,
+          )
+        ? "hidden"
+        : undefined) as FlexProps<any>["overflow"],
     gap,
     width,
     minWidth,
@@ -58,12 +59,9 @@ function Flex<C extends FlexableComponent>(
     ...props
   }:
     | (FlexProps<C> &
-        Omit<JSX.AllHTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
+        Omit<HTMLAttributes<ElementFromTag<C>>, keyof FlexProps<C>>)
     | (FlexProps<"div"> &
-        Omit<
-          JSX.AllHTMLAttributes<ElementFromTag<"div">>,
-          keyof FlexProps<"div">
-        >),
+        Omit<HTMLAttributes<ElementFromTag<"div">>, keyof FlexProps<"div">>),
   ref?: Ref<ElementFromTag<C>>,
 ) {
   const currentDirection =
