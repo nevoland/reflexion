@@ -13,6 +13,9 @@ export default defineConfig({
     outDir: "dist/demo",
   },
   clearScreen: false,
+  define: {
+    TARGET: JSON.stringify(TARGET),
+  },
   plugins: [
     moduleList({
       mode: {
