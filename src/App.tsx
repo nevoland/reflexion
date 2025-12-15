@@ -133,13 +133,24 @@ export function App() {
       <Flex
         align="center"
         class="a"
-        direction="horizontal"
+        direction="vertical"
         height={100}
         width="fill"
       >
         <Flex align="center" direction="vertical">
           <Flex Component="span">Title</Flex>
           <Flex>Sub-title</Flex>
+        </Flex>
+      </Flex>
+      <Flex direction="horizontal" gap={32} width="fill">
+        <Flex class="e min-w-14 max-w-max !grow !basis-14 truncate">
+          [Lorem ipsum officia ullamco enim et in sint pariatur et occaecat]
+        </Flex>
+        <Flex class="e min-w-14 max-w-max !grow !basis-12 truncate">
+          [Lorem ipsum officia ullamco enim et in sint pariatur et occaecat]
+        </Flex>
+        <Flex class="b min-w-14 truncate">
+          [cillum deserunt incididunt qui dolor occaecat dolore ut id ut ut]
         </Flex>
       </Flex>
       <Flex direction="horizontal" height="fill" width="fill">
